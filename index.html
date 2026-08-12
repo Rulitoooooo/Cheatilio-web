@@ -1,246 +1,627 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Che Atilio — Pizza Napoletana y Empanadas Artesanales</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#f2ece1] text-[#2c1d11] font-sans antialiased relative pb-24">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Che Atilio — Pizza Napoletana y Empanadas</title>
 
-  <!-- ENCABEZADO -->
-  <header class="bg-[#2c1d11] text-[#f2ece1] py-8 px-4 text-center shadow-md relative">
-    <div class="max-w-4xl mx-auto flex items-center justify-center gap-4">
-      <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center overflow-hidden border-2 border-[#d97706]">
-        <span class="text-3xl">🍕</span>
-      </div>
-      <div class="text-left">
-        <h1 class="text-3xl font-black italic tracking-wide text-[#f2ece1]">Che Atilio</h1>
-        <p class="text-xs uppercase tracking-widest text-[#d97706] font-semibold">Pizza Napoletana & Empanadas</p>
-      </div>
+<!-- Favicon con el logo SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='white' stroke='%23221A15' stroke-width='2'/><circle cx='50' cy='50' r='42' fill='none' stroke='%23221A15' stroke-width='1.5'/><line x1='8' y1='50' x2='92' y2='50' stroke='%23221A15' stroke-width='1.5'/><line x1='50' y1='50' x2='50' y2='8' stroke='%23221A15' stroke-width='1.5'/><line x1='50' y1='50' x2='20' y2='20' stroke='%23221A15' stroke-width='1.5'/><line x1='50' y1='50' x2='80' y2='20' stroke='%23221A15' stroke-width='1.5'/><circle cx='35' cy='25' r='3.5' fill='%23C13B23'/><circle cx='65' cy='25' r='3.5' fill='%23C13B23'/><circle cx='25' cy='38' r='3' fill='%23C13B23'/><circle cx='75' cy='38' r='3' fill='%23C13B23'/><circle cx='44' cy='35' r='2.5' fill='%23C13B23'/><circle cx='56' cy='35' r='2.5' fill='%23C13B23'/><text x='50' y='64' font-family='sans-serif' font-weight='bold' font-size='10' text-anchor='middle'><tspan fill='%23C13B23'>CHE </tspan><tspan fill='%23221A15'>ATILIO</tspan></text><text x='50' y='73' font-family='sans-serif' font-size='5.5' font-weight='bold' text-anchor='middle'><tspan fill='%23221A15'>PIZZA </tspan><tspan fill='%23C13B23'>NAPOLETANA</tspan></text></svg>">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          carbon:   '#221A15',
+          carbon2:  '#2E241D',
+          masa:     '#F3E9D2',
+          masa2:    '#E9DCBB',
+          tomate:   '#C13B23',
+          tomate2:  '#9C2E1B',
+          mostaza:  '#E4A930',
+          oliva:    '#5B6B35',
+        },
+        fontFamily: {
+          display: ['"Poppins"', 'sans-serif'],
+          body: ['"Poppins"', 'sans-serif'],
+          mono: ['"Space Mono"', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F3E9D2; }
+
+  .texture-dark {
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(228,169,48,0.10), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(193,59,35,0.18), transparent 45%);
+  }
+
+  .polaroid {
+    background: #fdfaf1;
+    box-shadow: 0 10px 25px -8px rgba(34,26,21,0.45);
+  }
+
+  .tape {
+    position: absolute;
+    width: 70px;
+    height: 22px;
+    background: rgba(243,233,210,0.55);
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+
+  .divider-dot {
+    background-image: radial-gradient(circle, #C13B23 2px, transparent 2.5px);
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+    background-position: center;
+    height: 2px;
+  }
+
+  ::selection { background: #E4A930; color: #221A15; }
+
+  #menuBtn.is-open .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menuBtn.is-open .hamburger-bar:nth-child(2) { opacity: 0; }
+  #menuBtn.is-open .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+</style>
+</head>
+<body class="font-body text-carbon antialiased relative">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-masa/95 backdrop-blur border-b border-carbon/10">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 py-3 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-white rounded-full p-1 shadow-md border border-carbon/10 flex items-center justify-center shrink-0">
+          <svg viewBox="0 0 100 100" class="w-full h-full">
+            <circle cx="50" cy="50" r="48" fill="white" stroke="#221A15" stroke-width="2"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#221A15" stroke-width="1.5"/>
+            <line x1="8" y1="50" x2="92" y2="50" stroke="#221A15" stroke-width="1.5"/>
+            <line x1="50" y1="50" x2="50" y2="8" stroke="#221A15" stroke-width="1.5"/>
+            <line x1="50" y1="50" x2="20" y2="20" stroke="#221A15" stroke-width="1.5"/>
+            <line x1="50" y1="50" x2="80" y2="20" stroke="#221A15" stroke-width="1.5"/>
+            <circle cx="35" cy="25" r="3.5" fill="#C13B23"/>
+            <circle cx="65" cy="25" r="3.5" fill="#C13B23"/>
+            <circle cx="25" cy="38" r="3" fill="#C13B23"/>
+            <circle cx="75" cy="38" r="3" fill="#C13B23"/>
+            <circle cx="44" cy="35" r="2.5" fill="#C13B23"/>
+            <circle cx="56" cy="35" r="2.5" fill="#C13B23"/>
+            <text x="50" y="64" font-family="sans-serif" font-weight="bold" font-size="10" text-anchor="middle">
+              <tspan fill="#C13B23">CHE </tspan><tspan fill="#221A15">ATILIO</tspan>
+            </text>
+            <text x="50" y="73" font-family="sans-serif" font-size="5.5" font-weight="bold" text-anchor="middle">
+              <tspan fill="#221A15">PIZZA </tspan><tspan fill="#C13B23">NAPOLETANA</tspan>
+            </text>
+          </svg>
+        </div>
+        <span class="font-display italic font-bold text-xl sm:text-2xl tracking-tight hidden sm:inline">Che Atilio</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 font-body text-sm uppercase tracking-wide">
+        <a href="#especialidades" class="hover:text-tomate transition-colors">Especialidades</a>
+        <a href="#historia" class="hover:text-tomate transition-colors">Nuestra historia</a>
+        <a href="#galeria" class="hover:text-tomate transition-colors">Galería</a>
+        <a href="#pedidos" class="hover:text-tomate transition-colors">Pedidos</a>
+        <button onclick="openAdminAuthModal()" class="text-xs bg-carbon/10 hover:bg-carbon hover:text-masa px-3 py-1 rounded-full transition-colors font-mono uppercase">🔒 Admin</button>
+      </nav>
+
+      <button onclick="toggleCart()" class="hidden md:flex items-center gap-2 bg-tomate text-masa px-5 py-2 rounded-full text-sm font-semibold hover:bg-tomate2 transition-colors">
+        <span>🛒 Mi Carrito</span>
+        <span id="nav-cart-count" class="bg-mostaza text-carbon text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+      </button>
+
+      <!-- botón hamburguesa -->
+      <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden flex flex-col justify-center gap-1.5 w-9 h-9 shrink-0">
+        <span class="hamburger-bar block h-0.5 w-6 bg-carbon transition-transform"></span>
+        <span class="hamburger-bar block h-0.5 w-6 bg-carbon transition-opacity"></span>
+        <span class="hamburger-bar block h-0.5 w-6 bg-carbon transition-transform"></span>
+      </button>
     </div>
+
+    <!-- menú mobile -->
+    <nav id="mobileMenu" class="md:hidden hidden flex-col bg-masa border-t border-carbon/10 font-body text-sm uppercase tracking-wide">
+      <a href="#especialidades" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Especialidades</a>
+      <a href="#historia" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Nuestra historia</a>
+      <a href="#galeria" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Galería</a>
+      <a href="#pedidos" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Pedidos</a>
+      <button onclick="openAdminAuthModal()" class="block text-left px-6 py-3 border-b border-carbon/10 hover:text-tomate font-mono">🔒 Panel Admin</button>
+      <button onclick="toggleCart()" class="block w-full px-6 py-4 bg-tomate text-masa text-center font-semibold normal-case">
+        🛒 Ver Carrito (<span id="mobile-cart-count">0</span>)
+      </button>
+    </nav>
   </header>
 
-  <!-- BARRA DE NAVEGACIÓN -->
-  <nav class="bg-[#e4d9c5] border-b border-[#2c1d11]/10 sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#2c1d11]/80 overflow-x-auto gap-4">
-      <a href="#pizzas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Especialidades</a>
-      <a href="#empanadas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Empanadas</a>
-      <a href="#calzones" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Calzones</a>
-      <a href="#bebidas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Bebidas</a>
-      <a href="#admin-panel" class="bg-[#2c1d11]/10 px-3 py-1.5 rounded-full hover:bg-[#2c1d11] hover:text-[#f2ece1] transition-all whitespace-nowrap">🔒 Admin</a>
-    </div>
-  </nav>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('flex');
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menuBtn.classList.toggle('is-open', isOpen);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.classList.remove('is-open');
+    }));
+  </script>
 
-  <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
-
-    <!-- SECCIÓN: PIZZAS -->
-    <section id="pizzas" class="space-y-6">
-      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Pizzas Napoletanas</h2>
-      <ul id="pizzas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Margherita</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella y albahaca</p>
-          </div>
-          <button onclick="addToCart('Margherita')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Colombo</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, tomate, albahaca y ajo</p>
-          </div>
-          <button onclick="addToCart('Colombo')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Bonanno</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Cebolla, mozarella, provolone rallado, aceite de oliva y orégano</p>
-          </div>
-          <button onclick="addToCart('Bonanno')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Lucchese</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, jamón, morrones y orégano</p>
-          </div>
-          <button onclick="addToCart('Lucchese')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Pepperoni</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, pepperoni y aceite de oliva</p>
-          </div>
-          <button onclick="addToCart('Pepperoni')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Mortalpizza</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, mortadela con pistacho y ricotta</p>
-          </div>
-          <button onclick="addToCart('Mortalpizza')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Fugazzeta Rellena</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Doble masa, doble mozzarella y cebolla</p>
-          </div>
-          <button onclick="addToCart('Fugazzeta Rellena')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-      </ul>
-    </section>
-
-    <!-- SECCIÓN: EMPANADAS -->
-    <section id="empanadas" class="space-y-6">
-      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Empanadas Al Horno de Barro</h2>
-      <div id="empanadas-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Carne a Cuchillo</span>
-          <button onclick="addToCart('Empanada Carne a Cuchillo')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+  <!-- SECCIÓN PANEL DE ADMINISTRACIÓN (SOLO VISIBLE CON CLAVE) -->
+  <section id="admin-panel" class="hidden bg-carbon text-masa border-b-4 border-mostaza">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 py-8">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-masa/20">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⚙️</span>
+          <h2 class="font-display font-bold text-2xl text-mostaza">Panel del Dueño - Agregar Productos</h2>
         </div>
-
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Pollo</span>
-          <button onclick="addToCart('Empanada Pollo')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </div>
-
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Jamón y Queso</span>
-          <button onclick="addToCart('Empanada Jamón y Queso')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </div>
-
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Bondiola</span>
-          <button onclick="addToCart('Empanada Bondiola')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </div>
-
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Caprese</span>
-          <button onclick="addToCart('Empanada Caprese')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </div>
-
-        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-xs text-[#2c1d11]">Humita</span>
-          <button onclick="addToCart('Empanada Humita')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </div>
-
+        <button onclick="closeAdminPanel()" class="bg-tomate text-xs font-mono px-3 py-1.5 rounded-full hover:bg-tomate2">Cerrar Sesión</button>
       </div>
-    </section>
 
-    <!-- SECCIÓN: CALZONES -->
-    <section id="calzones" class="space-y-6">
-      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Calzones</h2>
-      <ul id="calzones-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Calzone Napolitano</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Tomate, jamón, mozzarella, albahaca y ajo</p>
-          </div>
-          <button onclick="addToCart('Calzone Napolitano')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
-          <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">Calzone Atilio</h3>
-            <p class="text-xs text-[#2c1d11]/70 mt-1">Morrón, huevo, provolone y mozzarella</p>
-          </div>
-          <button onclick="addToCart('Calzone Atilio')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-      </ul>
-    </section>
-
-    <!-- SECCIÓN: BEBIDAS -->
-    <section id="bebidas" class="space-y-6">
-      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Bebidas</h2>
-      <ul id="bebidas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-base text-[#2c1d11]">Corona 710 ml</span>
-          <button onclick="addToCart('Corona 710 ml')" class="bg-[#2c1d11] text-[#f2ece1] text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
-          <span class="font-bold text-base text-[#2c1d11]">Gaseosa 1.5L</span>
-          <button onclick="addToCart('Gaseosa 1.5L')" class="bg-[#2c1d11] text-[#f2ece1] text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
-        </li>
-
-      </ul>
-    </section>
-
-    <!-- PANEL DE ADMINISTRACIÓN -->
-    <section id="admin-panel" class="bg-[#2c1d11] text-[#f2ece1] p-6 rounded-2xl shadow-xl space-y-6 mt-12">
-      <h2 class="text-xl font-bold text-[#d97706] flex items-center gap-2">
-        <span>⚙️</span> Panel Admin — Gestión de Productos
-      </h2>
-      
-      <form id="admin-form" onsubmit="handleAddNewProduct(event)" class="space-y-4 border-b border-white/10 pb-6">
-        <h3 class="text-sm font-semibold text-white/80">Agregar Nuevo Producto al Menú</h3>
-        
+      <form id="add-product-form" onsubmit="handleAddNewProduct(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-carbon2 p-5 rounded-2xl border border-masa/10">
         <div>
-          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Categoría</label>
-          <select id="admin-category" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706]">
-            <option value="pizzas" class="text-black">Pizza</option>
-            <option value="empanadas" class="text-black">Empanada</option>
-            <option value="calzones" class="text-black">Calzone</option>
-            <option value="bebidas" class="text-black">Bebida</option>
+          <label class="block font-mono text-xs text-masa2 mb-1">Categoría</label>
+          <select id="admin-category" class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza">
+            <option value="pizzas">Pizzas Napoletanas</option>
+            <option value="empanadas">Empanadas</option>
+            <option value="calzones">Calzones</option>
+            <option value="bebidas">Bebidas</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Nombre del Producto</label>
-          <input type="text" id="admin-name" required placeholder="Ej: Pizza Cuatro Quesos" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706] placeholder:text-white/30" />
+          <label class="block font-mono text-xs text-masa2 mb-1">Nombre del producto</label>
+          <input type="text" id="admin-name" required placeholder="Ej: Pizza Cuatro Quesos" class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
         </div>
 
         <div>
-          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Descripción / Ingredientes (Opcional)</label>
-          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola, fontina y parmesano" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706] placeholder:text-white/30" />
+          <label class="block font-mono text-xs text-masa2 mb-1">Descripción / Ingredientes</label>
+          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola, provolone..." class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
         </div>
 
-        <button type="submit" class="w-full bg-[#d97706] text-[#2c1d11] font-bold py-2.5 rounded-lg text-sm hover:bg-amber-400 transition-colors">
-          Guardar y Publicar
+        <button type="submit" class="bg-mostaza hover:bg-mostaza/90 text-carbon font-bold py-2.5 px-5 rounded-xl transition-colors font-mono text-sm">
+          + Guardar en el Menú
         </button>
       </form>
+    </div>
+  </section>
 
-      <!-- LISTA DE PRODUCTOS CREADOS -->
+  <!-- HERO -->
+  <section class="texture-dark bg-carbon text-masa relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 pt-14 pb-20 sm:pt-20 sm:pb-28 md:pt-24 md:pb-32 relative">
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-12">
+        <div class="flex-1 w-full">
+          <p class="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-mostaza mb-4 sm:mb-5">Pizza Napoletana & Empanadas · Delivery & Take Away</p>
+          <h1 class="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] sm:leading-[0.95] mb-5 sm:mb-6">
+            Pizza y empanadas,<br/>
+            <span class="italic text-tomate">al horno de barro.</span>
+          </h1>
+          <p class="max-w-md text-masa2 text-base sm:text-lg mb-7 sm:mb-8 leading-relaxed">
+            Masa leudada con paciencia, ingredientes seleccionados y el horno prendido al rojo vivo.
+          </p>
+          <div class="flex flex-wrap gap-3 sm:gap-4">
+            <a href="#especialidades" class="bg-tomate hover:bg-tomate2 transition-colors px-6 sm:px-7 py-3 rounded-full font-semibold text-sm sm:text-base">Armar mi pedido</a>
+          </div>
+        </div>
+
+        <div class="shrink-0 self-center md:self-end">
+          <div class="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 bg-white rounded-full p-2.5 shadow-2xl border-4 border-mostaza/80 flex items-center justify-center rotate-[-6deg] transition-transform hover:rotate-0 duration-300">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="48" fill="white" stroke="#221A15" stroke-width="2"/>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#221A15" stroke-width="1.5"/>
+              <line x1="8" y1="50" x2="92" y2="50" stroke="#221A15" stroke-width="1.5"/>
+              <line x1="50" y1="50" x2="50" y2="8" stroke="#221A15" stroke-width="1.5"/>
+              <line x1="50" y1="50" x2="20" y2="20" stroke="#221A15" stroke-width="1.5"/>
+              <line x1="50" y1="50" x2="80" y2="20" stroke="#221A15" stroke-width="1.5"/>
+              <circle cx="35" cy="25" r="3.5" fill="#C13B23"/>
+              <circle cx="65" cy="25" r="3.5" fill="#C13B23"/>
+              <circle cx="25" cy="38" r="3" fill="#C13B23"/>
+              <circle cx="75" cy="38" r="3" fill="#C13B23"/>
+              <circle cx="44" cy="35" r="2.5" fill="#C13B23"/>
+              <circle cx="56" cy="35" r="2.5" fill="#C13B23"/>
+              <text x="50" y="64" font-family="sans-serif" font-weight="bold" font-size="10" text-anchor="middle">
+                <tspan fill="#C13B23">CHE </tspan><tspan fill="#221A15">ATILIO</tspan>
+              </text>
+              <text x="50" y="73" font-family="sans-serif" font-size="5.5" font-weight="bold" text-anchor="middle">
+                <tspan fill="#221A15">PIZZA </tspan><tspan fill="#C13B23">NAPOLETANA</tspan>
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider-dot"></div>
+  </section>
+
+  <!-- ESPECIALIDADES -->
+  <section id="especialidades" class="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-28">
+    <div class="mb-10 sm:mb-12">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-tomate mb-3">Menú Che Atilio</p>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl">Elegí y agregá al carrito</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 sm:gap-14">
+      <!-- Pizzas -->
       <div>
-        <h3 class="text-sm font-semibold text-white/80 mb-3">Productos Creados por Vos</h3>
-        <ul id="custom-products-manage-list" class="space-y-2 text-xs">
-          <!-- Se llena dinámicamente -->
+        <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Pizzas Napoletanas</h3>
+        <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
+        <ul id="pizzas-list" class="space-y-4">
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Margherita</div>
+              <p class="text-xs text-carbon/70">Pomodoro, mozarella y albahaca</p>
+            </div>
+            <button onclick="addToCart('Pizza Margherita')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Colombo</div>
+              <p class="text-xs text-carbon/70">Pomodoro, mozarella, tomate, albahaca y ajo</p>
+            </div>
+            <button onclick="addToCart('Pizza Colombo')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Bonanno</div>
+              <p class="text-xs text-carbon/70">Cebolla, mozarella, provolone rallado, aceite de oliva y orégano</p>
+            </div>
+            <button onclick="addToCart('Pizza Bonanno')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Lucchese</div>
+              <p class="text-xs text-carbon/70">Pomodoro, mozarella, jamón, morrones y orégano</p>
+            </div>
+            <button onclick="addToCart('Pizza Lucchese')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Pepperoni</div>
+              <p class="text-xs text-carbon/70">Pomodoro, mozarella, pepperoni y aceite de oliva</p>
+            </div>
+            <button onclick="addToCart('Pizza Pepperoni')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Mortalpizza</div>
+              <p class="text-xs text-carbon/70">Pomodoro, mozzarella, mortadela con pistacho y ricotta</p>
+            </div>
+            <button onclick="addToCart('Pizza Mortalpizza')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
+          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+            <div>
+              <div class="font-bold">Fugazzeta Rellena</div>
+              <p class="text-xs text-carbon/70">Doble masa, doble mozzarella y cebolla</p>
+            </div>
+            <button onclick="addToCart('Fugazzeta Rellena')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          </li>
         </ul>
       </div>
-    </section>
 
-  </main>
+      <!-- Empanadas y Calzones -->
+      <div class="space-y-10">
+        <div>
+          <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Empanadas</h3>
+          <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
+          <div id="empanadas-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Carne a Cuchillo</span>
+              <button onclick="addToCart('Empanada Carne')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Pollo</span>
+              <button onclick="addToCart('Empanada Pollo')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Jamón y Queso</span>
+              <button onclick="addToCart('Empanada Jamón y Queso')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Bondiola</span>
+              <button onclick="addToCart('Empanada Bondiola')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Caprese</span>
+              <button onclick="addToCart('Empanada Caprese')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">Humita</span>
+              <button onclick="addToCart('Empanada Humita')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </div>
+          </div>
+        </div>
 
-  <!-- CARRITO FLOTANTE -->
-  <div id="cart-bar" class="fixed bottom-0 left-0 right-0 bg-[#2c1d11]/95 backdrop-blur-md text-[#f2ece1] p-4 border-t border-white/10 shadow-2xl flex items-center justify-between max-w-4xl mx-auto rounded-t-2xl z-50">
-    <div>
-      <div class="text-[10px] uppercase tracking-wider text-white/60">Tu pedido actual</div>
-      <div id="cart-summary" class="text-sm font-bold text-[#d97706] truncate max-w-[200px] sm:max-w-xs">Carrito vacío</div>
+        <div>
+          <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Calzones</h3>
+          <p class="text-sm text-carbon/60 mb-4 font-mono">al horno de barro</p>
+          <ul id="calzones-list" class="space-y-4">
+            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+              <div>
+                <div class="font-bold">Calzone Napolitano</div>
+                <p class="text-xs text-carbon/70">Tomate, jamón, mozzarella, albahaca y ajo</p>
+              </div>
+              <button onclick="addToCart('Calzone Napolitano')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </li>
+            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+              <div>
+                <div class="font-bold">Calzone Atilio</div>
+                <p class="text-xs text-carbon/70">Morrón, huevo, provolone y mozzarella</p>
+              </div>
+              <button onclick="addToCart('Calzone Atilio')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Bebidas</h3>
+          <ul id="bebidas-list" class="space-y-3 text-sm mt-4">
+            <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
+              <div>
+                <span class="font-semibold">Corona 710 ml</span>
+              </div>
+              <button onclick="addToCart('Corona 710ml')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </li>
+            <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
+              <div>
+                <span class="font-semibold">Gaseosa 1.5L</span>
+              </div>
+              <button onclick="addToCart('Gaseosa 1.5L')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <button onclick="sendOrderWhatsApp()" class="bg-[#b91c1c] text-white text-xs font-bold px-5 py-2.5 rounded-xl hover:bg-red-700 transition-colors shadow-md">
-      Pedir por WhatsApp 🚀
-    </button>
+  </section>
+
+  <div class="divider-dot"></div>
+
+  <!-- HISTORIA -->
+  <section id="historia" class="bg-masa2 py-16 sm:py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-tomate mb-3">De nuestra cocina a tu mesa</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-6">Tradición y horno de barro</h2>
+        <p class="text-carbon/80 leading-relaxed mb-4">
+          En Che Atilio elaboramos nuestras pizzas y empanadas con la pasión del clásico horno de barro. Masa artesanal, fermentación adecuada y la mejor selección de ingredientes para asegurar ese sabor crujiente e inconfundible.
+        </p>
+      </div>
+      <div class="relative h-56 sm:h-72 md:h-80 rounded-2xl overflow-hidden border border-carbon/10 shadow-lg bg-carbon/5">
+        <img src="/public/images/horno de barro.jpg" alt="Horno de Barro Che Atilio" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-28">
+    <div class="text-center mb-12 sm:mb-16">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-tomate mb-3">Recién salido</p>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl">Lo que se ve en la mesa</h2>
+    </div>
+
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 md:gap-16 justify-center items-center">
+
+      <div class="polaroid p-3 pb-8 rotate-[-2deg] relative max-w-xs mx-auto w-full">
+        <span class="tape -top-3 left-6 rotate-[-6deg] z-10"></span>
+        <div class="aspect-square bg-carbon/5 overflow-hidden">
+          <img src="public/images/empanadas.jpg" alt="Empanadas al horno de barro" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <div class="polaroid p-3 pb-8 rotate-[2deg] relative md:mt-6 max-w-xs mx-auto w-full">
+        <span class="tape -top-3 left-6 rotate-[5deg] z-10"></span>
+        <div class="aspect-square bg-carbon/5 overflow-hidden">
+          <img src="/public/images/horno de barro.jpg" alt="Horno de barro" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <div class="polaroid p-3 pb-8 rotate-[-3deg] relative max-w-xs mx-auto w-full">
+        <span class="tape -top-3 left-6 rotate-[-4deg] z-10"></span>
+        <div class="aspect-square bg-carbon/5 overflow-hidden">
+          <img src="/public/images/WhatsApp Image 2026-08-12 at 9.55.26 AM.jpeg" alt="Calzone Che Atilio" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider-dot"></div>
+
+  <!-- PEDIDOS / CONTACTO -->
+  <section id="pedidos" class="bg-carbon text-masa texture-dark">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-28 grid md:grid-cols-2 gap-10 md:gap-14">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] text-mostaza mb-3">Hacé tu pedido</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-6">¿Pedimos?</h2>
+        <p class="text-masa2 leading-relaxed mb-8">
+          Agregá tus productos preferidos al carrito y completá tu pedido por WhatsApp de forma rápida.
+        </p>
+        <button onclick="toggleCart()" class="bg-tomate hover:bg-tomate2 transition-colors px-6 sm:px-7 py-3 rounded-full font-semibold text-sm sm:text-base">Abrir Carrito de Compra</button>
+      </div>
+
+      <div class="font-mono text-sm space-y-6">
+        <div>
+          <p class="uppercase tracking-[0.2em] text-mostaza mb-2">Dirección</p>
+          <p class="text-masa2 text-base">Almafuerte 1375</p>
+        </div>
+
+        <div>
+          <p class="uppercase tracking-[0.2em] text-mostaza mb-2">Horarios de Atención</p>
+          <p class="text-masa2">Martes a Domingos</p>
+          <p class="text-masa2 font-bold text-base">18:00 a 23:00 hs</p>
+        </div>
+
+        <div>
+          <p class="uppercase tracking-[0.2em] text-mostaza mb-2">Servicio</p>
+          <p class="text-masa2">Delivery & Take Away</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-carbon text-masa2 border-t border-masa/10">
+    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="font-display italic text-lg text-masa">Che Atilio</span>
+      </div>
+      <p class="font-mono text-xs text-masa2/70 text-center">Almafuerte 1375 · Mar a Dom 18-23hs · © 2026 Che Atilio</p>
+      <button onclick="openAdminAuthModal()" class="text-xs text-masa2/50 hover:text-mostaza font-mono transition-colors">🔒 Acceso Dueño</button>
+    </div>
+  </footer>
+
+  <!-- MODAL DE CONTRASEÑA ADMIN -->
+  <div id="admin-auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-carbon border border-masa/20 rounded-2xl max-w-sm w-full p-6 text-masa relative shadow-2xl">
+      <button onclick="closeAdminAuthModal()" class="absolute top-4 right-4 text-masa/60 hover:text-masa font-mono">✕</button>
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-mostaza/20 text-mostaza rounded-full flex items-center justify-center mx-auto mb-3 text-xl">🔒</div>
+        <h3 class="font-display font-bold text-lg">Acceso Dueño</h3>
+        <p class="text-xs text-masa2 mt-1">Ingresá la contraseña para gestionar el menú</p>
+      </div>
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <input type="password" id="admin-password-input" placeholder="Contraseña..." class="w-full bg-carbon2 border border-masa/20 rounded-xl p-3 text-sm focus:outline-none focus:border-mostaza" required />
+        </div>
+        <button type="submit" class="w-full bg-mostaza hover:bg-mostaza/90 text-carbon font-bold py-3 rounded-xl transition-colors font-mono text-sm">
+          Ingresar
+        </button>
+      </form>
+    </div>
   </div>
 
-  <!-- JAVASCRIPT -->
+  <!-- BOTÓN FLOTANTE CARRITO -->
+  <button id="floating-cart-btn" onclick="toggleCart()" class="fixed bottom-6 right-6 z-40 bg-tomate text-masa p-4 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 transition-all">
+    <span class="text-2xl">🛒</span>
+    <span id="floating-cart-count" class="bg-mostaza text-carbon text-xs font-bold px-2.5 py-1 rounded-full font-mono">0</span>
+  </button>
+
+  <!-- OVERLAY FLOTANTE CARRITO -->
+  <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <!-- PANEL LATERAL CARRITO (DRAWER) -->
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-masa z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Header Carrito -->
+    <div class="bg-carbon text-masa p-5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🛒</span>
+        <h3 class="font-display font-bold text-lg">Tu Pedido</h3>
+      </div>
+      <button onclick="toggleCart()" class="text-masa/70 hover:text-masa font-mono text-xl">✕</button>
+    </div>
+
+    <!-- Lista de Items -->
+    <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4">
+      <!-- Se llena dinámicamente mediante JavaScript -->
+    </div>
+
+    <!-- Footer Carrito -->
+    <div class="p-5 bg-masa2 border-t border-carbon/10 space-y-4">
+      <!-- Opciones de Envío -->
+      <div>
+        <label class="block font-mono text-xs uppercase tracking-wider mb-1 text-carbon/70">Tipo de Entrega</label>
+        <select id="delivery-type" onchange="toggleAddressInput()" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm font-body focus:outline-none focus:border-tomate">
+          <option value="Delivery">Delivery a domicilio</option>
+          <option value="Retiro">Retiro por el local (Take Away)</option>
+        </select>
+      </div>
+
+      <div id="address-container">
+        <input type="text" id="delivery-address" placeholder="Ingresá tu dirección (Calle y N°)" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate" />
+      </div>
+
+      <div>
+        <textarea id="cart-notes" placeholder="Aclaraciones (Ej: Masa bien crocante, sin ajo...)" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate h-16 resize-none"></textarea>
+      </div>
+
+      <!-- Botón Pedir por WhatsApp -->
+      <button onclick="sendOrderWhatsApp()" class="w-full bg-oliva hover:bg-oliva/90 text-white font-bold py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg transition-colors">
+        <span>Enviar Pedido por WhatsApp</span>
+        <span>📲</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- LÓGICA DE JAVASCRIPT DEL CARRITO Y PANEL ADMIN -->
   <script>
     let cart = [];
+    const WHATSAPP_PHONE = "5491128952194"; // Número de WhatsApp Che Atilio
+    
+    // Contraseña para ingresar al panel de administración
+    const ADMIN_PASSWORD = "atilio123"; 
 
+    // Al cargar la página, recuperamos los ítems guardados por el dueño
     document.addEventListener('DOMContentLoaded', () => {
-      loadSavedProducts();
+      loadCustomProducts();
     });
+
+    // --- FUNCIONES DEL PANEL ADMIN ---
+    function openAdminAuthModal() {
+      document.getElementById('admin-auth-modal').classList.remove('hidden');
+      document.getElementById('admin-password-input').focus();
+    }
+
+    function closeAdminAuthModal() {
+      document.getElementById('admin-auth-modal').classList.add('hidden');
+      document.getElementById('admin-password-input').value = '';
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const inputPass = document.getElementById('admin-password-input').value;
+      if (inputPass === ADMIN_PASSWORD) {
+        closeAdminAuthModal();
+        const panel = document.getElementById('admin-panel');
+        panel.classList.remove('hidden');
+        panel.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('Contraseña incorrecta.');
+      }
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('admin-panel').classList.add('hidden');
+    }
+
+    function handleAddNewProduct(e) {
+      e.preventDefault();
+      const category = document.getElementById('admin-category').value;
+      const name = document.getElementById('admin-name').value.trim();
+      const desc = document.getElementById('admin-desc').value.trim();
+
+      if (!name) return;
+
+      const newProduct = { category, name, desc };
+      
+      // Guardar en localStorage
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.push(newProduct);
+      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
+
+      // Agregar visualmente al DOM
+      renderProductInDOM(newProduct);
+
+      // Limpiar formulario
+      document.getElementById('admin-name').value = '';
+      document.getElementById('admin-desc').value = '';
+
+      alert('¡Producto agregado al menú con éxito!');
+    }
+
+    function loadCustomProducts() {
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.forEach(product => renderProductInDOM(product));
+    }
 
     function renderProductInDOM(product) {
       if (product.category === 'pizzas' || product.category === 'calzones' || product.category === 'bebidas') {
@@ -248,14 +629,13 @@
         if (!targetList) return;
 
         const li = document.createElement('li');
-        li.id = `item-dom-${product.id}`;
-        li.className = "bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between";
+        li.className = "border-b border-carbon/10 pb-3 flex items-center justify-between";
         li.innerHTML = `
           <div>
-            <h3 class="font-bold text-lg text-[#2c1d11]">${product.name}</h3>
-            ${product.desc ? `<p class="text-xs text-[#2c1d11]/70 mt-1">${product.desc}</p>` : ''}
+            <div class="font-bold">${product.name}</div>
+            ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
           </div>
-          <button onclick="addToCart('${product.name}')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+          <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
         `;
         targetList.appendChild(li);
 
@@ -264,126 +644,126 @@
         if (!targetList) return;
 
         const div = document.createElement('div');
-        div.id = `item-dom-${product.id}`;
-        div.className = "bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between";
+        div.className = "border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between";
         div.innerHTML = `
-          <span class="font-bold text-xs text-[#2c1d11]">${product.name}</span>
-          <button onclick="addToCart('Empanada ${product.name}')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+          <span class="font-semibold text-xs">${product.name}</span>
+          <button onclick="addToCart('Empanada ${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
         `;
         targetList.appendChild(div);
       }
     }
 
-    function renderAdminManageItem(product) {
-      const manageList = document.getElementById('custom-products-manage-list');
-      if (!manageList) return;
+    // --- FUNCIONES DEL CARRITO ---
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = drawer.classList.contains('translate-x-0');
 
-      const li = document.createElement('li');
-      li.id = `manage-dom-${product.id}`;
-      li.className = "bg-white/5 border border-white/10 p-2.5 rounded-lg flex items-center justify-between";
-      li.innerHTML = `
-        <div>
-          <span class="font-bold text-[#d97706] capitalize">[${product.category}]</span> 
-          <span>${product.name}</span>
-        </div>
-        <button onclick="deleteProduct(${product.id})" class="bg-[#b91c1c] hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-md transition-colors">
-          🗑️ Eliminar
-        </button>
-      `;
-      manageList.appendChild(li);
-    }
-
-    function loadSavedProducts() {
-      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
-      
-      const manageList = document.getElementById('custom-products-manage-list');
-      if (manageList) manageList.innerHTML = '';
-
-      if (savedProducts.length === 0 && manageList) {
-        manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto personalizado todavía.</li>';
-        return;
-      }
-
-      savedProducts.forEach(product => {
-        renderProductInDOM(product);
-        renderAdminManageItem(product);
-      });
-    }
-
-    function handleAddNewProduct(e) {
-      e.preventDefault();
-      
-      const category = document.getElementById('admin-category').value;
-      const rawName = document.getElementById('admin-name').value.trim();
-      const rawDesc = document.getElementById('admin-desc').value.trim();
-
-      if (!rawName) return;
-
-      const name = rawName.replace(/['"]/g, '');
-      const desc = rawDesc.replace(/['"]/g, '');
-      const id = Date.now();
-
-      const newProduct = { id, category, name, desc };
-
-      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
-      savedProducts.push(newProduct);
-      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
-
-      const manageList = document.getElementById('custom-products-manage-list');
-      if (savedProducts.length === 1 && manageList) manageList.innerHTML = '';
-
-      renderProductInDOM(newProduct);
-      renderAdminManageItem(newProduct);
-
-      document.getElementById('admin-name').value = '';
-      document.getElementById('admin-desc').value = '';
-    }
-
-    function deleteProduct(productId) {
-      if (!confirm('¿Seguro que querés eliminar este producto?')) return;
-
-      let savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
-      savedProducts = savedProducts.filter(item => item.id !== productId);
-      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
-
-      const itemInMenu = document.getElementById(`item-dom-${productId}`);
-      const itemInAdmin = document.getElementById(`manage-dom-${productId}`);
-
-      if (itemInMenu) itemInMenu.remove();
-      if (itemInAdmin) itemInAdmin.remove();
-
-      if (savedProducts.length === 0) {
-        const manageList = document.getElementById('custom-products-manage-list');
-        if (manageList) manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto personalizado todavía.</li>';
+      if (isOpen) {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
       }
     }
 
-    function addToCart(itemName) {
-      cart.push(itemName);
+    function addToCart(name) {
+      const existingIndex = cart.findIndex(item => item.name === name);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push({ name, quantity: 1 });
+      }
       updateCartUI();
     }
 
-    function updateCartUI() {
-      const summary = document.getElementById('cart-summary');
-      if (cart.length === 0) {
-        summary.textContent = 'Carrito vacío';
-      } else {
-        summary.textContent = `${cart.length} item(s): ${cart.slice(-2).join(', ')}${cart.length > 2 ? '...' : ''}`;
+    function changeQuantity(name, delta) {
+      const index = cart.findIndex(item => item.name === name);
+      if (index > -1) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
       }
+      updateCartUI();
+    }
+
+    function toggleAddressInput() {
+      const type = document.getElementById('delivery-type').value;
+      const addressContainer = document.getElementById('address-container');
+      addressContainer.style.display = type === 'Delivery' ? 'block' : 'none';
+    }
+
+    function updateCartUI() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const navCount = document.getElementById('nav-cart-count');
+      const mobileCount = document.getElementById('mobile-cart-count');
+      const floatingCount = document.getElementById('floating-cart-count');
+
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      navCount.innerText = totalItems;
+      mobileCount.innerText = totalItems;
+      floatingCount.innerText = totalItems;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+          <div class="text-center text-carbon/50 py-12 font-mono text-sm">
+            Tu carrito está vacío 🍕<br/>¡Agregá tus pizzas preferidas!
+          </div>
+        `;
+        return;
+      }
+
+      cartItemsContainer.innerHTML = cart.map(item => `
+        <div class="bg-white p-3.5 rounded-xl border border-carbon/10 flex items-center justify-between shadow-sm">
+          <div>
+            <h4 class="font-bold text-sm text-carbon">${item.name}</h4>
+          </div>
+          <div class="flex items-center gap-2 bg-masa px-2 py-1 rounded-lg border border-carbon/10">
+            <button onclick="changeQuantity('${item.name}', -1)" class="font-bold text-carbon hover:text-tomate px-1">-</button>
+            <span class="font-mono text-xs font-semibold px-1">${item.quantity}</span>
+            <button onclick="changeQuantity('${item.name}', 1)" class="font-bold text-carbon hover:text-tomate px-1">+</button>
+          </div>
+        </div>
+      `).join('');
     }
 
     function sendOrderWhatsApp() {
       if (cart.length === 0) {
-        alert('Agregá al menos un producto antes de enviar tu pedido.');
+        alert("Tu carrito está vacío. Agregá algún producto antes de pedir.");
         return;
       }
 
-      const phoneNumber = "5491112345678"; 
-      const itemsList = cart.map(item => `• ${item}`).join('\n');
-      const message = `¡Hola Che Atilio! Quisiera hacer este pedido:\n\n${itemsList}\n\n¡Muchas gracias!`;
+      const deliveryType = document.getElementById('delivery-type').value;
+      const address = document.getElementById('delivery-address').value.trim();
+      const notes = document.getElementById('cart-notes').value.trim();
+
+      if (deliveryType === 'Delivery' && !address) {
+        alert("Por favor, ingresá tu dirección para la entrega.");
+        return;
+      }
+
+      let message = `Hola Che Atilio! Quisiera realizar el siguiente pedido:\n\n`;
+      
+      cart.forEach(item => {
+        message += `• ${item.quantity}x ${item.name}\n`;
+      });
+
+      message += `\n*Tipo de Entrega:* ${deliveryType}`;
+      if (deliveryType === 'Delivery') {
+        message += `\n*Dirección:* ${address}`;
+      }
+
+      if (notes) {
+        message += `\n*Aclaraciones:* ${notes}`;
+      }
 
       const encodedMessage = encodeURIComponent(message);
-      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`, '_blank');
     }
   </script>
 </body>
