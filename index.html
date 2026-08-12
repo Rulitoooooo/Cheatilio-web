@@ -141,30 +141,13 @@
     </nav>
   </header>
 
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('flex');
-      mobileMenu.classList.toggle('hidden');
-      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      menuBtn.classList.toggle('is-open', isOpen);
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      mobileMenu.classList.remove('flex');
-      menuBtn.setAttribute('aria-expanded', 'false');
-      menuBtn.classList.remove('is-open');
-    }));
-  </script>
-
   <!-- SECCIÓN PANEL DE ADMINISTRACIÓN (SOLO VISIBLE CON CLAVE) -->
   <section id="admin-panel" class="hidden bg-carbon text-masa border-b-4 border-mostaza">
     <div class="max-w-6xl mx-auto px-5 sm:px-6 py-8">
       <div class="flex items-center justify-between mb-6 pb-4 border-b border-masa/20">
         <div class="flex items-center gap-2">
           <span class="text-2xl">⚙️</span>
-          <h2 class="font-display font-bold text-2xl text-mostaza">Panel del Dueño - Agregar Productos</h2>
+          <h2 class="font-display font-bold text-2xl text-mostaza">Panel del Dueño - Gestión del Menú</h2>
         </div>
         <button onclick="closeAdminPanel()" class="bg-tomate text-xs font-mono px-3 py-1.5 rounded-full hover:bg-tomate2">Cerrar Sesión</button>
       </div>
@@ -187,7 +170,7 @@
 
         <div>
           <label class="block font-mono text-xs text-masa2 mb-1">Descripción / Ingredientes</label>
-          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola, provolone..." class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
+          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola..." class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
         </div>
 
         <button type="submit" class="bg-mostaza hover:bg-mostaza/90 text-carbon font-bold py-2.5 px-5 rounded-xl transition-colors font-mono text-sm">
@@ -256,57 +239,7 @@
       <div>
         <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Pizzas Napoletanas</h3>
         <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
-        <ul id="pizzas-list" class="space-y-4">
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Margherita</div>
-              <p class="text-xs text-carbon/70">Pomodoro, mozarella y albahaca</p>
-            </div>
-            <button onclick="addToCart('Pizza Margherita')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Colombo</div>
-              <p class="text-xs text-carbon/70">Pomodoro, mozarella, tomate, albahaca y ajo</p>
-            </div>
-            <button onclick="addToCart('Pizza Colombo')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Bonanno</div>
-              <p class="text-xs text-carbon/70">Cebolla, mozarella, provolone rallado, aceite de oliva y orégano</p>
-            </div>
-            <button onclick="addToCart('Pizza Bonanno')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Lucchese</div>
-              <p class="text-xs text-carbon/70">Pomodoro, mozarella, jamón, morrones y orégano</p>
-            </div>
-            <button onclick="addToCart('Pizza Lucchese')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Pepperoni</div>
-              <p class="text-xs text-carbon/70">Pomodoro, mozarella, pepperoni y aceite de oliva</p>
-            </div>
-            <button onclick="addToCart('Pizza Pepperoni')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Mortalpizza</div>
-              <p class="text-xs text-carbon/70">Pomodoro, mozzarella, mortadela con pistacho y ricotta</p>
-            </div>
-            <button onclick="addToCart('Pizza Mortalpizza')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Fugazzeta Rellena</div>
-              <p class="text-xs text-carbon/70">Doble masa, doble mozzarella y cebolla</p>
-            </div>
-            <button onclick="addToCart('Fugazzeta Rellena')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-        </ul>
+        <ul id="pizzas-list" class="space-y-4"></ul>
       </div>
 
       <!-- Empanadas y Calzones -->
@@ -314,71 +247,18 @@
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Empanadas</h3>
           <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
-          <div id="empanadas-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Carne a Cuchillo</span>
-              <button onclick="addToCart('Empanada Carne')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Pollo</span>
-              <button onclick="addToCart('Empanada Pollo')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Jamón y Queso</span>
-              <button onclick="addToCart('Empanada Jamón y Queso')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Bondiola</span>
-              <button onclick="addToCart('Empanada Bondiola')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Caprese</span>
-              <button onclick="addToCart('Empanada Caprese')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-              <span class="font-semibold text-xs">Humita</span>
-              <button onclick="addToCart('Empanada Humita')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </div>
-          </div>
+          <div id="empanadas-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm"></div>
         </div>
 
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Calzones</h3>
           <p class="text-sm text-carbon/60 mb-4 font-mono">al horno de barro</p>
-          <ul id="calzones-list" class="space-y-4">
-            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-              <div>
-                <div class="font-bold">Calzone Napolitano</div>
-                <p class="text-xs text-carbon/70">Tomate, jamón, mozzarella, albahaca y ajo</p>
-              </div>
-              <button onclick="addToCart('Calzone Napolitano')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </li>
-            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-              <div>
-                <div class="font-bold">Calzone Atilio</div>
-                <p class="text-xs text-carbon/70">Morrón, huevo, provolone y mozzarella</p>
-              </div>
-              <button onclick="addToCart('Calzone Atilio')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </li>
-          </ul>
+          <ul id="calzones-list" class="space-y-4"></ul>
         </div>
 
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Bebidas</h3>
-          <ul id="bebidas-list" class="space-y-3 text-sm mt-4">
-            <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
-              <div>
-                <span class="font-semibold">Corona 710 ml</span>
-              </div>
-              <button onclick="addToCart('Corona 710ml')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </li>
-            <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
-              <div>
-                <span class="font-semibold">Gaseosa 1.5L</span>
-              </div>
-              <button onclick="addToCart('Gaseosa 1.5L')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            </li>
-          </ul>
+          <ul id="bebidas-list" class="space-y-3 text-sm mt-4"></ul>
         </div>
       </div>
     </div>
@@ -410,7 +290,6 @@
     </div>
 
     <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 md:gap-16 justify-center items-center">
-
       <div class="polaroid p-3 pb-8 rotate-[-2deg] relative max-w-xs mx-auto w-full">
         <span class="tape -top-3 left-6 rotate-[-6deg] z-10"></span>
         <div class="aspect-square bg-carbon/5 overflow-hidden">
@@ -431,7 +310,6 @@
           <img src="/public/images/WhatsApp Image 2026-08-12 at 9.55.26 AM.jpeg" alt="Calzone Che Atilio" class="w-full h-full object-cover" />
         </div>
       </div>
-
     </div>
   </section>
 
@@ -511,7 +389,6 @@
 
   <!-- PANEL LATERAL CARRITO (DRAWER) -->
   <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-masa z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-    <!-- Header Carrito -->
     <div class="bg-carbon text-masa p-5 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="text-xl">🛒</span>
@@ -520,14 +397,9 @@
       <button onclick="toggleCart()" class="text-masa/70 hover:text-masa font-mono text-xl">✕</button>
     </div>
 
-    <!-- Lista de Items -->
-    <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4">
-      <!-- Se llena dinámicamente mediante JavaScript -->
-    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
 
-    <!-- Footer Carrito -->
     <div class="p-5 bg-masa2 border-t border-carbon/10 space-y-4">
-      <!-- Opciones de Envío -->
       <div>
         <label class="block font-mono text-xs uppercase tracking-wider mb-1 text-carbon/70">Tipo de Entrega</label>
         <select id="delivery-type" onchange="toggleAddressInput()" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm font-body focus:outline-none focus:border-tomate">
@@ -541,230 +413,270 @@
       </div>
 
       <div>
-        <textarea id="cart-notes" placeholder="Aclaraciones (Ej: Masa bien crocante, sin ajo...)" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate h-16 resize-none"></textarea>
+        <textarea id="cart-notes" placeholder="Aclaraciones (Ej: Masa bien crocante, sin ajo...)" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate h-20 resize-none"></textarea>
       </div>
 
-      <!-- Botón Pedir por WhatsApp -->
-      <button onclick="sendOrderWhatsApp()" class="w-full bg-oliva hover:bg-oliva/90 text-white font-bold py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg transition-colors">
-        <span>Enviar Pedido por WhatsApp</span>
-        <span>📲</span>
+      <button onclick="sendWhatsAppOrder()" class="w-full bg-tomate hover:bg-tomate2 text-masa font-bold py-3 rounded-xl transition-colors text-center block font-mono text-sm">
+        Pedir por WhatsApp 📲
       </button>
     </div>
   </aside>
 
-  <!-- LÓGICA DE JAVASCRIPT DEL CARRITO Y PANEL ADMIN -->
+  <!-- SCRIPT CON LÓGICA COMPLETA DE ADMINISTRACIÓN Y CARRITO -->
   <script>
-    let cart = [];
-    const WHATSAPP_PHONE = "5491128952194"; // Número de WhatsApp Che Atilio
-    
-    // Contraseña para ingresar al panel de administración
-    const ADMIN_PASSWORD = "atilio123"; 
+    // --- DATOS INICIALES DEL MENÚ ---
+    const initialProducts = [
+      { id: 1, name: "Pizza Margherita", desc: "Pomodoro, mozarella y albahaca", category: "pizzas" },
+      { id: 2, name: "Pizza Colombo", desc: "Pomodoro, mozarella, tomate, albahaca y ajo", category: "pizzas" },
+      { id: 3, name: "Pizza Bonanno", desc: "Cebolla, mozarella, provolone rallado, aceite de oliva y orégano", category: "pizzas" },
+      { id: 4, name: "Pizza Lucchese", desc: "Pomodoro, mozarella, jamón, morrones y orégano", category: "pizzas" },
+      { id: 5, name: "Pizza Pepperoni", desc: "Pomodoro, mozarella, pepperoni y aceite de oliva", category: "pizzas" },
+      { id: 6, name: "Pizza Mortalpizza", desc: "Pomodoro, mozzarella, mortadela con pistacho y ricotta", category: "pizzas" },
+      { id: 7, name: "Fugazzeta Rellena", desc: "Doble masa, doble mozzarella y cebolla", category: "pizzas" },
+      
+      { id: 8, name: "Empanada Carne", desc: "Carne a Cuchillo", category: "empanadas" },
+      { id: 9, name: "Empanada Pollo", desc: "Pollo artesanal", category: "empanadas" },
+      { id: 10, name: "Empanada Jamón y Queso", desc: "Jamón y queso fundido", category: "empanadas" },
+      { id: 11, name: "Empanada Bondiola", desc: "Bondiola braseada", category: "empanadas" },
+      { id: 12, name: "Empanada Caprese", desc: "Mozzarella, tomate y albahaca", category: "empanadas" },
+      { id: 13, name: "Empanada Humita", desc: "Choclo cremoso", category: "empanadas" },
 
-    // Al cargar la página, recuperamos los ítems guardados por el dueño
-    document.addEventListener('DOMContentLoaded', () => {
-      loadCustomProducts();
-    });
+      { id: 14, name: "Calzone Napolitano", desc: "Tomate, jamón, mozzarella, albahaca y ajo", category: "calzones" },
+      { id: 15, name: "Calzone Atilio", desc: "Morrón, huevo, provolone y mozzarella", category: "calzones" },
+
+      { id: 16, name: "Corona 710ml", desc: "Cerveza Corona 710 ml", category: "bebidas" },
+      { id: 17, name: "Gaseosa 1.5L", desc: "Gaseosa línea Coca-Cola", category: "bebidas" }
+    ];
+
+    // Cargar productos del LocalStorage o usar los por defecto
+    let products = JSON.parse(localStorage.getItem('cheAtilio_products')) || initialProducts;
+    let cart = [];
+    let isAdmin = false;
+
+    // --- RENDERIZADO DEL MENÚ EN LA PÁGINA ---
+    function renderMenu() {
+      const pizzasList = document.getElementById('pizzas-list');
+      const empanadasList = document.getElementById('empanadas-list');
+      const calzonesList = document.getElementById('calzones-list');
+      const bebidasList = document.getElementById('bebidas-list');
+
+      pizzasList.innerHTML = '';
+      empanadasList.innerHTML = '';
+      calzonesList.innerHTML = '';
+      bebidasList.innerHTML = '';
+
+      products.forEach(product => {
+        const deleteButton = isAdmin ? 
+          `<button onclick="deleteProduct(${product.id})" title="Eliminar producto" class="bg-red-600 text-white text-xs px-2 py-1 rounded-full hover:bg-red-700 ml-2">🗑️</button>` : '';
+
+        if (product.category === 'pizzas') {
+          pizzasList.innerHTML += `
+            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+              <div>
+                <div class="font-bold">${product.name}</div>
+                ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
+              </div>
+              <div class="flex items-center">
+                <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+                ${deleteButton}
+              </div>
+            </li>`;
+        } else if (product.category === 'empanadas') {
+          empanadasList.innerHTML += `
+            <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
+              <span class="font-semibold text-xs">${product.name}</span>
+              <div class="flex items-center">
+                <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+                ${deleteButton}
+              </div>
+            </div>`;
+        } else if (product.category === 'calzones') {
+          calzonesList.innerHTML += `
+            <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
+              <div>
+                <div class="font-bold">${product.name}</div>
+                ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
+              </div>
+              <div class="flex items-center">
+                <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+                ${deleteButton}
+              </div>
+            </li>`;
+        } else if (product.category === 'bebidas') {
+          bebidasList.innerHTML += `
+            <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
+              <div>
+                <span class="font-semibold">${product.name}</span>
+              </div>
+              <div class="flex items-center">
+                <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+                ${deleteButton}
+              </div>
+            </li>`;
+        }
+      });
+
+      localStorage.setItem('cheAtilio_products', JSON.stringify(products));
+    }
 
     // --- FUNCIONES DEL PANEL ADMIN ---
     function openAdminAuthModal() {
       document.getElementById('admin-auth-modal').classList.remove('hidden');
-      document.getElementById('admin-password-input').focus();
     }
 
     function closeAdminAuthModal() {
       document.getElementById('admin-auth-modal').classList.add('hidden');
-      document.getElementById('admin-password-input').value = '';
     }
 
     function handleAdminLogin(e) {
       e.preventDefault();
-      const inputPass = document.getElementById('admin-password-input').value;
-      if (inputPass === ADMIN_PASSWORD) {
+      const pwd = document.getElementById('admin-password-input').value;
+      if (pwd === "atilio123" || pwd === "admin") { // Cambia tu contraseña aquí
+        isAdmin = true;
+        document.getElementById('admin-panel').classList.remove('hidden');
         closeAdminAuthModal();
-        const panel = document.getElementById('admin-panel');
-        panel.classList.remove('hidden');
-        panel.scrollIntoView({ behavior: 'smooth' });
+        renderMenu();
+        alert("Sesión de administración iniciada correctamente.");
       } else {
-        alert('Contraseña incorrecta.');
+        alert("Contraseña incorrecta.");
       }
     }
 
     function closeAdminPanel() {
+      isAdmin = false;
       document.getElementById('admin-panel').classList.add('hidden');
+      renderMenu();
     }
 
     function handleAddNewProduct(e) {
       e.preventDefault();
       const category = document.getElementById('admin-category').value;
-      const name = document.getElementById('admin-name').value.trim();
-      const desc = document.getElementById('admin-desc').value.trim();
+      const name = document.getElementById('admin-name').value;
+      const desc = document.getElementById('admin-desc').value;
 
-      if (!name) return;
+      const newProduct = {
+        id: Date.now(),
+        name,
+        desc,
+        category
+      };
 
-      const newProduct = { category, name, desc };
-      
-      // Guardar en localStorage
-      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
-      savedProducts.push(newProduct);
-      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
+      products.push(newProduct);
+      renderMenu();
 
-      // Agregar visualmente al DOM
-      renderProductInDOM(newProduct);
-
-      // Limpiar formulario
       document.getElementById('admin-name').value = '';
       document.getElementById('admin-desc').value = '';
-
-      alert('¡Producto agregado al menú con éxito!');
     }
 
-    function loadCustomProducts() {
-      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
-      savedProducts.forEach(product => renderProductInDOM(product));
-    }
-
-    function renderProductInDOM(product) {
-      if (product.category === 'pizzas' || product.category === 'calzones' || product.category === 'bebidas') {
-        const targetList = document.getElementById(`${product.category}-list`);
-        if (!targetList) return;
-
-        const li = document.createElement('li');
-        li.className = "border-b border-carbon/10 pb-3 flex items-center justify-between";
-        li.innerHTML = `
-          <div>
-            <div class="font-bold">${product.name}</div>
-            ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
-          </div>
-          <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-        `;
-        targetList.appendChild(li);
-
-      } else if (product.category === 'empanadas') {
-        const targetList = document.getElementById('empanadas-list');
-        if (!targetList) return;
-
-        const div = document.createElement('div');
-        div.className = "border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between";
-        div.innerHTML = `
-          <span class="font-semibold text-xs">${product.name}</span>
-          <button onclick="addToCart('Empanada ${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-        `;
-        targetList.appendChild(div);
+    function deleteProduct(id) {
+      if (confirm("¿Estás seguro de que querés borrar este producto del menú?")) {
+        products = products.filter(product => product.id !== id);
+        renderMenu();
       }
     }
 
-    // --- FUNCIONES DEL CARRITO ---
-    function toggleCart() {
-      const drawer = document.getElementById('cart-drawer');
-      const overlay = document.getElementById('cart-overlay');
-      const isOpen = drawer.classList.contains('translate-x-0');
-
-      if (isOpen) {
-        drawer.classList.remove('translate-x-0');
-        drawer.classList.add('translate-x-full');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
+    // --- LÓGICA DEL CARRITO ---
+    function addToCart(itemName) {
+      const existingItem = cart.find(item => item.name === itemName);
+      if (existingItem) {
+        existingItem.qty += 1;
       } else {
-        drawer.classList.remove('translate-x-full');
-        drawer.classList.add('translate-x-0');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-      }
-    }
-
-    function addToCart(name) {
-      const existingIndex = cart.findIndex(item => item.name === name);
-      if (existingIndex > -1) {
-        cart[existingIndex].quantity += 1;
-      } else {
-        cart.push({ name, quantity: 1 });
+        cart.push({ name: itemName, qty: 1 });
       }
       updateCartUI();
     }
 
-    function changeQuantity(name, delta) {
-      const index = cart.findIndex(item => item.name === name);
-      if (index > -1) {
-        cart[index].quantity += delta;
-        if (cart[index].quantity <= 0) {
-          cart.splice(index, 1);
-        }
-      }
+    function removeFromCart(itemName) {
+      cart = cart.filter(item => item.name !== itemName);
       updateCartUI();
     }
 
-    function toggleAddressInput() {
-      const type = document.getElementById('delivery-type').value;
-      const addressContainer = document.getElementById('address-container');
-      addressContainer.style.display = type === 'Delivery' ? 'block' : 'none';
+    function changeQty(itemName, delta) {
+      const item = cart.find(i => i.name === itemName);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) removeFromCart(itemName);
+      }
+      updateCartUI();
     }
 
     function updateCartUI() {
-      const cartItemsContainer = document.getElementById('cart-items');
-      const navCount = document.getElementById('nav-cart-count');
-      const mobileCount = document.getElementById('mobile-cart-count');
-      const floatingCount = document.getElementById('floating-cart-count');
+      const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+      document.getElementById('nav-cart-count').innerText = totalItems;
+      document.getElementById('mobile-cart-count').innerText = totalItems;
+      document.getElementById('floating-cart-count').innerText = totalItems;
 
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-      navCount.innerText = totalItems;
-      mobileCount.innerText = totalItems;
-      floatingCount.innerText = totalItems;
-
+      const container = document.getElementById('cart-items');
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
-          <div class="text-center text-carbon/50 py-12 font-mono text-sm">
-            Tu carrito está vacío 🍕<br/>¡Agregá tus pizzas preferidas!
-          </div>
-        `;
+        container.innerHTML = '<p class="text-center text-carbon/50 py-8 text-sm">Tu carrito está vacío.</p>';
         return;
       }
 
-      cartItemsContainer.innerHTML = cart.map(item => `
-        <div class="bg-white p-3.5 rounded-xl border border-carbon/10 flex items-center justify-between shadow-sm">
+      container.innerHTML = cart.map(item => `
+        <div class="flex items-center justify-between border-b border-carbon/10 pb-3">
           <div>
-            <h4 class="font-bold text-sm text-carbon">${item.name}</h4>
+            <p class="font-bold text-sm">${item.name}</p>
           </div>
-          <div class="flex items-center gap-2 bg-masa px-2 py-1 rounded-lg border border-carbon/10">
-            <button onclick="changeQuantity('${item.name}', -1)" class="font-bold text-carbon hover:text-tomate px-1">-</button>
-            <span class="font-mono text-xs font-semibold px-1">${item.quantity}</span>
-            <button onclick="changeQuantity('${item.name}', 1)" class="font-bold text-carbon hover:text-tomate px-1">+</button>
+          <div class="flex items-center gap-2">
+            <button onclick="changeQty('${item.name}', -1)" class="w-6 h-6 bg-carbon/10 rounded-full font-bold text-xs">-</button>
+            <span class="font-mono text-sm font-bold">${item.qty}</span>
+            <button onclick="changeQty('${item.name}', 1)" class="w-6 h-6 bg-carbon/10 rounded-full font-bold text-xs">+</button>
+            <button onclick="removeFromCart('${item.name}')" class="text-xs text-tomate ml-2">✕</button>
           </div>
         </div>
       `).join('');
     }
 
-    function sendOrderWhatsApp() {
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function toggleAddressInput() {
+      const type = document.getElementById('delivery-type').value;
+      const addrContainer = document.getElementById('address-container');
+      addrContainer.style.display = type === 'Retiro' ? 'none' : 'block';
+    }
+
+    function sendWhatsAppOrder() {
       if (cart.length === 0) {
-        alert("Tu carrito está vacío. Agregá algún producto antes de pedir.");
+        alert("Agregá al menos un producto al carrito.");
         return;
       }
 
       const deliveryType = document.getElementById('delivery-type').value;
-      const address = document.getElementById('delivery-address').value.trim();
-      const notes = document.getElementById('cart-notes').value.trim();
+      const address = document.getElementById('delivery-address').value;
+      const notes = document.getElementById('cart-notes').value;
 
-      if (deliveryType === 'Delivery' && !address) {
-        alert("Por favor, ingresá tu dirección para la entrega.");
-        return;
-      }
-
-      let message = `Hola Che Atilio! Quisiera realizar el siguiente pedido:\n\n`;
-      
-      cart.forEach(item => {
-        message += `• ${item.quantity}x ${item.name}\n`;
+      let msg = `*Nuevo Pedido - Che Atilio*\n\n`;
+      msg += `*Pedido:*\n`;
+      cart.forEach(i => {
+        msg += `• ${i.qty}x ${i.name}\n`;
       });
 
-      message += `\n*Tipo de Entrega:* ${deliveryType}`;
+      msg += `\n*Tipo de entrega:* ${deliveryType}\n`;
       if (deliveryType === 'Delivery') {
-        message += `\n*Dirección:* ${address}`;
+        msg += `*Dirección:* ${address || 'No especificada'}\n`;
       }
-
       if (notes) {
-        message += `\n*Aclaraciones:* ${notes}`;
+        msg += `*Notas:* ${notes}\n`;
       }
 
-      const encodedMessage = encodeURIComponent(message);
-      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`, '_blank');
+      const phone = "5491128952194"; // Reemplaza con tu número de WhatsApp
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
     }
+
+    // Inicializar renderizado al cargar la página
+    renderMenu();
   </script>
 </body>
 </html>
