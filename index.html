@@ -541,133 +541,34 @@
       </div>
 
       <div>
-        <textarea id="cart-notes" placeholder="Aclaraciones sobre tu pedido (opcional)..." class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate h-16"></textarea>
+        <textarea id="cart-notes" placeholder="Aclaraciones (Ej: Masa bien crocante, sin ajo...)" class="w-full bg-white border border-carbon/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-tomate h-16 resize-none"></textarea>
       </div>
 
-      <button onclick="sendOrderWhatsApp()" class="w-full bg-tomate hover:bg-tomate2 text-masa font-bold py-3.5 rounded-xl transition-colors text-center text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+      <!-- Botón Pedir por WhatsApp -->
+      <button onclick="sendOrderWhatsApp()" class="w-full bg-oliva hover:bg-oliva/90 text-white font-bold py-3.5 rounded-full flex items-center justify-center gap-2 shadow-lg transition-colors">
         <span>Enviar Pedido por WhatsApp</span>
         <span>📲</span>
       </button>
     </div>
   </aside>
 
-  <!-- LÓGICA DE JAVASCRIPT Y CONTROL DE TIENDA Y ADMIN -->
+  <!-- LÓGICA DE JAVASCRIPT DEL CARRITO Y PANEL ADMIN -->
   <script>
     let cart = [];
-    let isAdminLoggedIn = false;
+    const WHATSAPP_PHONE = "5491128952194"; // Número de WhatsApp Che Atilio
+    
+    // Contraseña para ingresar al panel de administración
+    const ADMIN_PASSWORD = "atilio123"; 
 
-    // Control Carrito
-    function toggleCart() {
-      const drawer = document.getElementById('cart-drawer');
-      const overlay = document.getElementById('cart-overlay');
-      const isOpen = !drawer.classList.contains('translate-x-full');
+    // Al cargar la página, recuperamos los ítems guardados por el dueño
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCustomProducts();
+    });
 
-      if (isOpen) {
-        drawer.classList.add('translate-x-full');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-      } else {
-        drawer.classList.remove('translate-x-full');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-      }
-    }
-
-    function addToCart(productName) {
-      const existingIndex = cart.findIndex(item => item.name === productName);
-      if (existingIndex > -1) {
-        cart[existingIndex].quantity += 1;
-      } else {
-        cart.push({ name: productName, quantity: 1 });
-      }
-      updateCartUI();
-    }
-
-    function updateCartQuantity(index, delta) {
-      cart[index].quantity += delta;
-      if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-      }
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById('nav-cart-count').innerText = totalCount;
-      document.getElementById('mobile-cart-count').innerText = totalCount;
-      document.getElementById('floating-cart-count').innerText = totalCount;
-
-      const container = document.getElementById('cart-items');
-      if (cart.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-10 text-carbon/50">
-            <p class="text-4xl mb-2">🍕</p>
-            <p class="font-mono text-sm">Tu carrito está vacío</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = cart.map((item, index) => `
-        <div class="bg-white p-3.5 rounded-xl border border-carbon/10 flex items-center justify-between shadow-sm">
-          <div>
-            <div class="font-bold text-sm text-carbon">${item.name}</div>
-          </div>
-          <div class="flex items-center gap-2 bg-masa/60 rounded-lg p-1 border border-carbon/10">
-            <button onclick="updateCartQuantity(${index}, -1)" class="w-6 h-6 bg-white text-carbon rounded flex items-center justify-center font-bold text-xs shadow-sm hover:bg-tomate hover:text-white transition-colors">-</button>
-            <span class="font-mono text-xs font-bold w-4 text-center">${item.quantity}</span>
-            <button onclick="updateCartQuantity(${index}, 1)" class="w-6 h-6 bg-white text-carbon rounded flex items-center justify-center font-bold text-xs shadow-sm hover:bg-tomate hover:text-white transition-colors">+</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function toggleAddressInput() {
-      const type = document.getElementById('delivery-type').value;
-      const addressContainer = document.getElementById('address-container');
-      if (type === 'Retiro') {
-        addressContainer.classList.add('hidden');
-      } else {
-        addressContainer.classList.remove('hidden');
-      }
-    }
-
-    function sendOrderWhatsApp() {
-      if (cart.length === 0) {
-        alert('Tu carrito está vacío. Agregá algún producto antes de enviar.');
-        return;
-      }
-
-      const deliveryType = document.getElementById('delivery-type').value;
-      const address = document.getElementById('delivery-address').value;
-      const notes = document.getElementById('cart-notes').value;
-
-      if (deliveryType === 'Delivery' && !address.trim()) {
-        alert('Por favor ingresá la dirección para el delivery.');
-        return;
-      }
-
-      let message = `*NUEVO PEDIDO - CHE ATILIO*\n\n`;
-      message += `*Detalle:*\n`;
-      cart.forEach(item => {
-        message += `• ${item.quantity}x ${item.name}\n`;
-      });
-
-      message += `\n*Tipo de Entrega:* ${deliveryType}\n`;
-      if (deliveryType === 'Delivery') {
-        message += `*Dirección:* ${address}\n`;
-      }
-      if (notes.trim()) {
-        message += `*Aclaraciones:* ${notes}\n`;
-      }
-
-      const encodedMessage = encodeURIComponent(message);
-      // Reemplaza con el número real de WhatsApp del local sin el + (Ej: 5491112345678)
-      const phone = '5491100000000';
-      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
-    }
-
-    // Modal & Login Admin
+    // --- FUNCIONES DEL PANEL ADMIN ---
     function openAdminAuthModal() {
       document.getElementById('admin-auth-modal').classList.remove('hidden');
+      document.getElementById('admin-password-input').focus();
     }
 
     function closeAdminAuthModal() {
@@ -677,46 +578,21 @@
 
     function handleAdminLogin(e) {
       e.preventDefault();
-      const pass = document.getElementById('admin-password-input').value;
-      // Contraseña por defecto: admin123
-      if (pass === 'admin123') {
-        isAdminLoggedIn = true;
+      const inputPass = document.getElementById('admin-password-input').value;
+      if (inputPass === ADMIN_PASSWORD) {
         closeAdminAuthModal();
-        document.getElementById('admin-panel').classList.remove('hidden');
-        toggleDeleteButtons(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const panel = document.getElementById('admin-panel');
+        panel.classList.remove('hidden');
+        panel.scrollIntoView({ behavior: 'smooth' });
       } else {
-        alert('Contraseña incorrecta');
+        alert('Contraseña incorrecta.');
       }
     }
 
     function closeAdminPanel() {
-      isAdminLoggedIn = false;
       document.getElementById('admin-panel').classList.add('hidden');
-      toggleDeleteButtons(false);
     }
 
-    // Mostrar/Ocultar botones de borrado
-    function toggleDeleteButtons(show) {
-      const deleteButtons = document.querySelectorAll('.delete-new-product-btn');
-      deleteButtons.forEach(btn => {
-        if (show) {
-          btn.classList.remove('hidden');
-        } else {
-          btn.classList.add('hidden');
-        }
-      });
-    }
-
-    // Borrar un producto agregado nuevo
-    function deleteProduct(productId) {
-      const el = document.getElementById(productId);
-      if (el) {
-        el.remove();
-      }
-    }
-
-    // Agregar Nuevo Producto al Menú
     function handleAddNewProduct(e) {
       e.preventDefault();
       const category = document.getElementById('admin-category').value;
@@ -725,61 +601,170 @@
 
       if (!name) return;
 
-      const uniqueId = 'new-prod-' + Date.now();
-      const deleteBtnClass = isAdminLoggedIn ? '' : 'hidden';
+      const newProduct = { category, name, desc };
+      
+      // Guardar en localStorage
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.push(newProduct);
+      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
 
-      if (category === 'pizzas' || category === 'calzones') {
-        const targetList = category === 'pizzas' ? document.getElementById('pizzas-list') : document.getElementById('calzones-list');
-        const newItem = document.createElement('li');
-        newItem.id = uniqueId;
-        newItem.className = 'border-b border-carbon/10 pb-3 flex items-center justify-between';
-        newItem.innerHTML = `
-          <div>
-            <div class="font-bold">${name}</div>
-            ${desc ? `<p class="text-xs text-carbon/70">${desc}</p>` : ''}
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="addToCart('${name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            <button onclick="deleteProduct('${uniqueId}')" class="delete-new-product-btn ${deleteBtnClass} bg-tomate text-white text-xs font-mono font-semibold px-2.5 py-1.5 rounded-full hover:bg-tomate2 transition-colors">🗑️ Borrar</button>
-          </div>
-        `;
-        targetList.appendChild(newItem);
-      } else if (category === 'empanadas') {
-        const targetList = document.getElementById('empanadas-list');
-        const newItem = document.createElement('div');
-        newItem.id = uniqueId;
-        newItem.className = 'border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between';
-        newItem.innerHTML = `
-          <span class="font-semibold text-xs">${name}</span>
-          <div class="flex items-center gap-1.5">
-            <button onclick="addToCart('${name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            <button onclick="deleteProduct('${uniqueId}')" class="delete-new-product-btn ${deleteBtnClass} bg-tomate text-white text-xs font-mono px-2 py-1 rounded-full hover:bg-tomate2 transition-colors">🗑️ Borrar</button>
-          </div>
-        `;
-        targetList.appendChild(newItem);
-      } else if (category === 'bebidas') {
-        const targetList = document.getElementById('bebidas-list');
-        const newItem = document.createElement('li');
-        newItem.id = uniqueId;
-        newItem.className = 'border-b border-carbon/10 pb-2 flex items-center justify-between';
-        newItem.innerHTML = `
-          <div>
-            <span class="font-semibold">${name}</span>
-            ${desc ? `<p class="text-xs text-carbon/70">${desc}</p>` : ''}
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="addToCart('${name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-            <button onclick="deleteProduct('${uniqueId}')" class="delete-new-product-btn ${deleteBtnClass} bg-tomate text-white text-xs font-mono px-2 py-1 rounded-full hover:bg-tomate2 transition-colors">🗑️ Borrar</button>
-          </div>
-        `;
-        targetList.appendChild(newItem);
-      }
+      // Agregar visualmente al DOM
+      renderProductInDOM(newProduct);
 
-      // Limpiar Formulario
+      // Limpiar formulario
       document.getElementById('admin-name').value = '';
       document.getElementById('admin-desc').value = '';
-      alert('¡Producto agregado con éxito!');
+
+      alert('¡Producto agregado al menú con éxito!');
+    }
+
+    function loadCustomProducts() {
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.forEach(product => renderProductInDOM(product));
+    }
+
+    function renderProductInDOM(product) {
+      if (product.category === 'pizzas' || product.category === 'calzones' || product.category === 'bebidas') {
+        const targetList = document.getElementById(`${product.category}-list`);
+        if (!targetList) return;
+
+        const li = document.createElement('li');
+        li.className = "border-b border-carbon/10 pb-3 flex items-center justify-between";
+        li.innerHTML = `
+          <div>
+            <div class="font-bold">${product.name}</div>
+            ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
+          </div>
+          <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+        `;
+        targetList.appendChild(li);
+
+      } else if (product.category === 'empanadas') {
+        const targetList = document.getElementById('empanadas-list');
+        if (!targetList) return;
+
+        const div = document.createElement('div');
+        div.className = "border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between";
+        div.innerHTML = `
+          <span class="font-semibold text-xs">${product.name}</span>
+          <button onclick="addToCart('Empanada ${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+        `;
+        targetList.appendChild(div);
+      }
+    }
+
+    // --- FUNCIONES DEL CARRITO ---
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = drawer.classList.contains('translate-x-0');
+
+      if (isOpen) {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function addToCart(name) {
+      const existingIndex = cart.findIndex(item => item.name === name);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push({ name, quantity: 1 });
+      }
+      updateCartUI();
+    }
+
+    function changeQuantity(name, delta) {
+      const index = cart.findIndex(item => item.name === name);
+      if (index > -1) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+      updateCartUI();
+    }
+
+    function toggleAddressInput() {
+      const type = document.getElementById('delivery-type').value;
+      const addressContainer = document.getElementById('address-container');
+      addressContainer.style.display = type === 'Delivery' ? 'block' : 'none';
+    }
+
+    function updateCartUI() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const navCount = document.getElementById('nav-cart-count');
+      const mobileCount = document.getElementById('mobile-cart-count');
+      const floatingCount = document.getElementById('floating-cart-count');
+
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      navCount.innerText = totalItems;
+      mobileCount.innerText = totalItems;
+      floatingCount.innerText = totalItems;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+          <div class="text-center text-carbon/50 py-12 font-mono text-sm">
+            Tu carrito está vacío 🍕<br/>¡Agregá tus pizzas preferidas!
+          </div>
+        `;
+        return;
+      }
+
+      cartItemsContainer.innerHTML = cart.map(item => `
+        <div class="bg-white p-3.5 rounded-xl border border-carbon/10 flex items-center justify-between shadow-sm">
+          <div>
+            <h4 class="font-bold text-sm text-carbon">${item.name}</h4>
+          </div>
+          <div class="flex items-center gap-2 bg-masa px-2 py-1 rounded-lg border border-carbon/10">
+            <button onclick="changeQuantity('${item.name}', -1)" class="font-bold text-carbon hover:text-tomate px-1">-</button>
+            <span class="font-mono text-xs font-semibold px-1">${item.quantity}</span>
+            <button onclick="changeQuantity('${item.name}', 1)" class="font-bold text-carbon hover:text-tomate px-1">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function sendOrderWhatsApp() {
+      if (cart.length === 0) {
+        alert("Tu carrito está vacío. Agregá algún producto antes de pedir.");
+        return;
+      }
+
+      const deliveryType = document.getElementById('delivery-type').value;
+      const address = document.getElementById('delivery-address').value.trim();
+      const notes = document.getElementById('cart-notes').value.trim();
+
+      if (deliveryType === 'Delivery' && !address) {
+        alert("Por favor, ingresá tu dirección para la entrega.");
+        return;
+      }
+
+      let message = `Hola Che Atilio! Quisiera realizar el siguiente pedido:\n\n`;
+      
+      cart.forEach(item => {
+        message += `• ${item.quantity}x ${item.name}\n`;
+      });
+
+      message += `\n*Tipo de Entrega:* ${deliveryType}`;
+      if (deliveryType === 'Delivery') {
+        message += `\n*Dirección:* ${address}`;
+      }
+
+      if (notes) {
+        message += `\n*Aclaraciones:* ${notes}`;
+      }
+
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`, '_blank');
     }
   </script>
 </body>
-</html> 
+</html>
