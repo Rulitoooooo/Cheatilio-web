@@ -3,181 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Che Atilio - Menú Digital</title>
-  <!-- Tailwind CSS CDN -->
+  <title>Che Atilio — Pizza Napoletana y Empanadas Artesanales</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            carbon: '#1a1a1a',
-            masa: '#fdfbf7',
-            tomate: '#e63946',
-            queso: '#ffb703'
-          }
-        }
-      }
-    }
-  </script>
 </head>
-<body class="bg-masa text-carbon font-sans antialiased relative pb-24">
+<body class="bg-[#f2ece1] text-[#2c1d11] font-sans antialiased relative pb-24">
 
   <!-- ENCABEZADO -->
-  <header class="bg-carbon text-masa py-6 px-4 text-center shadow-lg">
-    <h1 class="text-3xl font-extrabold tracking-wider text-queso">CHE ATILIO</h1>
-    <p class="text-xs uppercase tracking-widest mt-1 opacity-80">Pizzas & Empanadas Artesanales</p>
+  <header class="bg-[#2c1d11] text-[#f2ece1] py-8 px-4 text-center shadow-md relative">
+    <div class="max-w-4xl mx-auto flex items-center justify-center gap-4">
+      <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center overflow-hidden border-2 border-[#d97706]">
+        <span class="text-3xl">🍕</span>
+      </div>
+      <div class="text-left">
+        <h1 class="text-3xl font-black italic tracking-wide text-[#f2ece1]">Che Atilio</h1>
+        <p class="text-xs uppercase tracking-widest text-[#d97706] font-semibold">Pizza Napoletana & Empanadas</p>
+      </div>
+    </div>
   </header>
 
-  <main class="max-w-2xl mx-auto px-4 py-8 space-y-12">
+  <!-- BARRA DE NAVEGACIÓN -->
+  <nav class="bg-[#e4d9c5] border-b border-[#2c1d11]/10 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#2c1d11]/80 overflow-x-auto gap-4">
+      <a href="#pizzas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Especialidades</a>
+      <a href="#empanadas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Empanadas</a>
+      <a href="#calzones" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Calzones</a>
+      <a href="#bebidas" class="hover:text-[#b91c1c] transition-colors whitespace-nowrap">Bebidas</a>
+      <a href="#admin-panel" class="bg-[#2c1d11]/10 px-3 py-1.5 rounded-full hover:bg-[#2c1d11] hover:text-[#f2ece1] transition-all whitespace-nowrap">🔒 Admin</a>
+    </div>
+  </nav>
 
-    <!-- SECCIÓN: ESPECIALIDADES (MENÚ) -->
-    <section id="especialidades" class="space-y-8">
-      
-      <!-- PIZZAS -->
-      <div class="bg-white/60 p-6 rounded-2xl shadow-sm border border-carbon/5">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 border-b border-carbon/10 pb-2">
-          <span>🍕</span> Pizzas
-        </h2>
-        <ul id="pizzas-list" class="space-y-4">
-          <!-- Platos por defecto -->
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Muzzarella</div>
-              <p class="text-xs text-carbon/70">Salsa de tomate casera, abundante muzzarella y orégano.</p>
-            </div>
-            <button onclick="addToCart('Muzzarella')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Fugazzeta</div>
-              <p class="text-xs text-carbon/70">Cebolla caramelizada, muzzarella y toque de aceite de oliva.</p>
-            </div>
-            <button onclick="addToCart('Fugazzeta')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-        </ul>
-      </div>
+  <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
 
-      <!-- EMPANADAS -->
-      <div class="bg-white/60 p-6 rounded-2xl shadow-sm border border-carbon/5">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 border-b border-carbon/10 pb-2">
-          <span>🥟</span> Empanadas
-        </h2>
-        <div id="empanadas-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-          <!-- Platos por defecto -->
-          <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-            <span class="font-semibold text-xs">Carne Cortada a Cuchillo</span>
-            <button onclick="addToCart('Empanada Carne Cortada a Cuchillo')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+    <!-- SECCIÓN: PIZZAS -->
+    <section id="pizzas" class="space-y-6">
+      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Pizzas Napoletanas</h2>
+      <ul id="pizzas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Margherita</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella y albahaca</p>
           </div>
-          <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
-            <span class="font-semibold text-xs">Jamon y Queso</span>
-            <button onclick="addToCart('Empanada Jamon y Queso')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          <button onclick="addToCart('Margherita')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Colombo</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, tomate, albahaca y ajo</p>
           </div>
-        </div>
-      </div>
+          <button onclick="addToCart('Colombo')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
 
-      <!-- CALZONES -->
-      <div class="bg-white/60 p-6 rounded-2xl shadow-sm border border-carbon/5">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 border-b border-carbon/10 pb-2">
-          <span>🥐</span> Calzones
-        </h2>
-        <ul id="calzones-list" class="space-y-4">
-          <!-- Platos por defecto -->
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Calzone Tradicional</div>
-              <p class="text-xs text-carbon/70">Relleno de jamón, muzzarella, tomates secos y albahaca.</p>
-            </div>
-            <button onclick="addToCart('Calzone Tradicional')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-        </ul>
-      </div>
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Bonanno</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Cebolla, mozarella, provolone rallado, aceite de oliva y orégano</p>
+          </div>
+          <button onclick="addToCart('Bonanno')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
 
-      <!-- BEBIDAS -->
-      <div class="bg-white/60 p-6 rounded-2xl shadow-sm border border-carbon/5">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 border-b border-carbon/10 pb-2">
-          <span>🥤</span> Bebidas
-        </h2>
-        <ul id="bebidas-list" class="space-y-3 text-sm">
-          <!-- Platos por defecto -->
-          <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
-            <div>
-              <div class="font-bold">Coca-Cola 1.5L</div>
-            </div>
-            <button onclick="addToCart('Coca-Cola 1.5L')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
-          </li>
-        </ul>
-      </div>
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Lucchese</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, jamón, morrones y orégano</p>
+          </div>
+          <button onclick="addToCart('Lucchese')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
 
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Pepperoni</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, pepperoni y aceite de oliva</p>
+          </div>
+          <button onclick="addToCart('Pepperoni')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Mortalpizza</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Pomodoro, mozarella, mortadela con pistacho y ricotta</p>
+          </div>
+          <button onclick="addToCart('Mortalpizza')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Fugazzeta Rellena</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Doble masa, doble mozzarella y cebolla</p>
+          </div>
+          <button onclick="addToCart('Fugazzeta Rellena')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+      </ul>
     </section>
 
-    <!-- PANEL DE ADMINISTRACIÓN (AGREGAR Y ELIMINAR PLATOS) -->
-    <section id="admin-panel" class="bg-carbon text-masa p-6 rounded-2xl shadow-lg border border-queso/30 space-y-6">
-      <h2 class="text-lg font-bold text-queso flex items-center gap-2">
-        <span>⚙️</span> Panel Admin - Gestión de Productos
+    <!-- SECCIÓN: EMPANADAS -->
+    <section id="empanadas" class="space-y-6">
+      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Empanadas Al Horno de Barro</h2>
+      <div id="empanadas-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Carne a Cuchillo</span>
+          <button onclick="addToCart('Empanada Carne a Cuchillo')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Pollo</span>
+          <button onclick="addToCart('Empanada Pollo')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Jamón y Queso</span>
+          <button onclick="addToCart('Empanada Jamón y Queso')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Bondiola</span>
+          <button onclick="addToCart('Empanada Bondiola')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Caprese</span>
+          <button onclick="addToCart('Empanada Caprese')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+        <div class="bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-xs text-[#2c1d11]">Humita</span>
+          <button onclick="addToCart('Empanada Humita')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CALZONES -->
+    <section id="calzones" class="space-y-6">
+      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Calzones</h2>
+      <ul id="calzones-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Calzone Napolitano</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Tomate, jamón, mozzarella, albahaca y ajo</p>
+          </div>
+          <button onclick="addToCart('Calzone Napolitano')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg text-[#2c1d11]">Calzone Atilio</h3>
+            <p class="text-xs text-[#2c1d11]/70 mt-1">Morrón, huevo, provolone y mozzarella</p>
+          </div>
+          <button onclick="addToCart('Calzone Atilio')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- SECCIÓN: BEBIDAS -->
+    <section id="bebidas" class="space-y-6">
+      <h2 class="text-2xl font-black italic text-[#b91c1c] border-b-2 border-[#b91c1c]/20 pb-2">Bebidas</h2>
+      <ul id="bebidas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-base text-[#2c1d11]">Corona 710 ml</span>
+          <button onclick="addToCart('Corona 710 ml')" class="bg-[#2c1d11] text-[#f2ece1] text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+        <li class="bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between">
+          <span class="font-bold text-base text-[#2c1d11]">Gaseosa 1.5L</span>
+          <button onclick="addToCart('Gaseosa 1.5L')" class="bg-[#2c1d11] text-[#f2ece1] text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- PANEL DE ADMINISTRACIÓN -->
+    <section id="admin-panel" class="bg-[#2c1d11] text-[#f2ece1] p-6 rounded-2xl shadow-xl space-y-6 mt-12">
+      <h2 class="text-xl font-bold text-[#d97706] flex items-center gap-2">
+        <span>⚙️</span> Panel Admin — Gestión de Productos
       </h2>
       
-      <!-- FORMULARIO PARA AGREGAR -->
       <form id="admin-form" onsubmit="handleAddNewProduct(event)" class="space-y-4 border-b border-white/10 pb-6">
-        <h3 class="text-sm font-semibold text-white/80">Agregar Nuevo Producto</h3>
+        <h3 class="text-sm font-semibold text-white/80">Agregar Nuevo Producto al Menú</h3>
+        
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider mb-1">Categoría</label>
-          <select id="admin-category" class="w-full bg-white/10 text-masa border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-queso">
-            <option value="pizzas" class="text-carbon">Pizza</option>
-            <option value="empanadas" class="text-carbon">Empanada</option>
-            <option value="calzones" class="text-carbon">Calzone</option>
-            <option value="bebidas" class="text-carbon">Bebida</option>
+          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Categoría</label>
+          <select id="admin-category" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706]">
+            <option value="pizzas" class="text-black">Pizza</option>
+            <option value="empanadas" class="text-black">Empanada</option>
+            <option value="calzones" class="text-black">Calzone</option>
+            <option value="bebidas" class="text-black">Bebida</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider mb-1">Nombre del Producto</label>
-          <input type="text" id="admin-name" required placeholder="Ej: Pizza Napolitana" class="w-full bg-white/10 text-masa border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-queso placeholder:text-white/40" />
+          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Nombre del Producto</label>
+          <input type="text" id="admin-name" required placeholder="Ej: Pizza Cuatro Quesos" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706] placeholder:text-white/30" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider mb-1">Descripción (Opcional)</label>
-          <input type="text" id="admin-desc" placeholder="Ej: Con ajo, rodajas de tomate y salsa casera" class="w-full bg-white/10 text-masa border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-queso placeholder:text-white/40" />
+          <label class="block text-xs uppercase font-bold text-white/60 mb-1">Descripción / Ingredientes (Opcional)</label>
+          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola, fontina y parmesano" class="w-full bg-white/10 text-[#f2ece1] border border-white/20 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#d97706] placeholder:text-white/30" />
         </div>
 
-        <button type="submit" class="w-full bg-queso text-carbon font-bold py-2.5 rounded-lg text-sm hover:bg-yellow-400 transition-colors">
-          Guardar y Publicar en Menú
+        <button type="submit" class="w-full bg-[#d97706] text-[#2c1d11] font-bold py-2.5 rounded-lg text-sm hover:bg-amber-400 transition-colors">
+          Guardar y Publicar
         </button>
       </form>
 
-      <!-- LISTA DE PRODUCTOS AGREGADOS CON BOTÓN ELIMINAR -->
+      <!-- LISTA DE PRODUCTOS CREADOS -->
       <div>
         <h3 class="text-sm font-semibold text-white/80 mb-3">Productos Creados por Vos</h3>
         <ul id="custom-products-manage-list" class="space-y-2 text-xs">
-          <!-- Se llena dinámicamente con JS -->
+          <!-- Se llena dinámicamente -->
         </ul>
       </div>
     </section>
 
   </main>
 
-  <!-- BARRA FLOTANTE DEL CARRITO / PEDIDO -->
-  <div id="cart-bar" class="fixed bottom-0 left-0 right-0 bg-carbon/95 backdrop-blur-md text-masa p-4 border-t border-white/10 shadow-2xl flex items-center justify-between max-w-2xl mx-auto rounded-t-2xl z-50">
+  <!-- CARRITO FLOTANTE -->
+  <div id="cart-bar" class="fixed bottom-0 left-0 right-0 bg-[#2c1d11]/95 backdrop-blur-md text-[#f2ece1] p-4 border-t border-white/10 shadow-2xl flex items-center justify-between max-w-4xl mx-auto rounded-t-2xl z-50">
     <div>
-      <div class="text-xs text-white/70">Tu pedido actual:</div>
-      <div id="cart-summary" class="text-sm font-bold text-queso truncate max-w-[220px] sm:max-w-xs">Carrito vacío</div>
+      <div class="text-[10px] uppercase tracking-wider text-white/60">Tu pedido actual</div>
+      <div id="cart-summary" class="text-sm font-bold text-[#d97706] truncate max-w-[200px] sm:max-w-xs">Carrito vacío</div>
     </div>
-    <button onclick="sendOrderWhatsApp()" class="bg-tomate text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-md">
+    <button onclick="sendOrderWhatsApp()" class="bg-[#b91c1c] text-white text-xs font-bold px-5 py-2.5 rounded-xl hover:bg-red-700 transition-colors shadow-md">
       Pedir por WhatsApp 🚀
     </button>
   </div>
 
-  <!-- JAVASCRIPT DE LOGICA, MEMORIA Y ELIMINACIÓN -->
+  <!-- JAVASCRIPT -->
   <script>
-    // ESTADO DEL CARRITO
     let cart = [];
 
-    // AL CARGAR LA PÁGINA: Cargar productos guardados
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedProducts();
     });
 
-    // 1. DIBUJAR PRODUCTO EN EL MENÚ PÚBLICO
     function renderProductInDOM(product) {
       if (product.category === 'pizzas' || product.category === 'calzones' || product.category === 'bebidas') {
         const targetList = document.getElementById(`${product.category}-list`);
@@ -185,13 +249,13 @@
 
         const li = document.createElement('li');
         li.id = `item-dom-${product.id}`;
-        li.className = "border-b border-carbon/10 pb-3 flex items-center justify-between";
+        li.className = "bg-[#e9e0d1] p-4 rounded-xl border border-[#2c1d11]/10 flex flex-col justify-between";
         li.innerHTML = `
           <div>
-            <div class="font-bold">${product.name}</div>
-            ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
+            <h3 class="font-bold text-lg text-[#2c1d11]">${product.name}</h3>
+            ${product.desc ? `<p class="text-xs text-[#2c1d11]/70 mt-1">${product.desc}</p>` : ''}
           </div>
-          <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          <button onclick="addToCart('${product.name}')" class="mt-3 w-full bg-[#2c1d11] text-[#f2ece1] text-xs font-bold py-2 rounded-lg hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
         `;
         targetList.appendChild(li);
 
@@ -201,16 +265,15 @@
 
         const div = document.createElement('div');
         div.id = `item-dom-${product.id}`;
-        div.className = "border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between";
+        div.className = "bg-[#e9e0d1] p-3 rounded-xl border border-[#2c1d11]/10 flex items-center justify-between";
         div.innerHTML = `
-          <span class="font-semibold text-xs">${product.name}</span>
-          <button onclick="addToCart('Empanada ${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+          <span class="font-bold text-xs text-[#2c1d11]">${product.name}</span>
+          <button onclick="addToCart('Empanada ${product.name}')" class="bg-[#2c1d11] text-[#f2ece1] text-[10px] font-bold px-2.5 py-1 rounded-full hover:bg-[#b91c1c] transition-colors">+ Agregar</button>
         `;
         targetList.appendChild(div);
       }
     }
 
-    // 2. DIBUJAR PRODUCTO EN LA LISTA DE GESTIÓN (PANEL ADMIN)
     function renderAdminManageItem(product) {
       const manageList = document.getElementById('custom-products-manage-list');
       if (!manageList) return;
@@ -220,17 +283,16 @@
       li.className = "bg-white/5 border border-white/10 p-2.5 rounded-lg flex items-center justify-between";
       li.innerHTML = `
         <div>
-          <span class="font-bold text-queso capitalize">[${product.category}]</span> 
+          <span class="font-bold text-[#d97706] capitalize">[${product.category}]</span> 
           <span>${product.name}</span>
         </div>
-        <button onclick="deleteProduct(${product.id})" class="bg-tomate/80 hover:bg-tomate text-white text-[10px] font-bold px-2.5 py-1 rounded-md transition-colors">
+        <button onclick="deleteProduct(${product.id})" class="bg-[#b91c1c] hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-md transition-colors">
           🗑️ Eliminar
         </button>
       `;
       manageList.appendChild(li);
     }
 
-    // 3. CARGAR PRODUCTOS DESDE LOCALSTORAGE
     function loadSavedProducts() {
       const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
       
@@ -238,7 +300,7 @@
       if (manageList) manageList.innerHTML = '';
 
       if (savedProducts.length === 0 && manageList) {
-        manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto todavía.</li>';
+        manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto personalizado todavía.</li>';
         return;
       }
 
@@ -248,7 +310,6 @@
       });
     }
 
-    // 4. AGREGAR NUEVO PRODUCTO
     function handleAddNewProduct(e) {
       e.preventDefault();
       
@@ -278,7 +339,6 @@
       document.getElementById('admin-desc').value = '';
     }
 
-    // 5. ELIMINAR PRODUCTO
     function deleteProduct(productId) {
       if (!confirm('¿Seguro que querés eliminar este producto?')) return;
 
@@ -294,11 +354,10 @@
 
       if (savedProducts.length === 0) {
         const manageList = document.getElementById('custom-products-manage-list');
-        if (manageList) manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto todavía.</li>';
+        if (manageList) manageList.innerHTML = '<li class="text-white/40 italic">No agregaste ningún producto personalizado todavía.</li>';
       }
     }
 
-    // 6. LOGICA DEL CARRITO
     function addToCart(itemName) {
       cart.push(itemName);
       updateCartUI();
