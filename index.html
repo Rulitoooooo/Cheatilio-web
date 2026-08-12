@@ -112,6 +112,7 @@
         <a href="#historia" class="hover:text-tomate transition-colors">Nuestra historia</a>
         <a href="#galeria" class="hover:text-tomate transition-colors">Galería</a>
         <a href="#pedidos" class="hover:text-tomate transition-colors">Pedidos</a>
+        <button onclick="openAdminAuthModal()" class="text-xs bg-carbon/10 hover:bg-carbon hover:text-masa px-3 py-1 rounded-full transition-colors font-mono uppercase">🔒 Admin</button>
       </nav>
 
       <button onclick="toggleCart()" class="hidden md:flex items-center gap-2 bg-tomate text-masa px-5 py-2 rounded-full text-sm font-semibold hover:bg-tomate2 transition-colors">
@@ -133,6 +134,7 @@
       <a href="#historia" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Nuestra historia</a>
       <a href="#galeria" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Galería</a>
       <a href="#pedidos" class="block px-6 py-3 border-b border-carbon/10 hover:text-tomate">Pedidos</a>
+      <button onclick="openAdminAuthModal()" class="block text-left px-6 py-3 border-b border-carbon/10 hover:text-tomate font-mono">🔒 Panel Admin</button>
       <button onclick="toggleCart()" class="block w-full px-6 py-4 bg-tomate text-masa text-center font-semibold normal-case">
         🛒 Ver Carrito (<span id="mobile-cart-count">0</span>)
       </button>
@@ -155,6 +157,45 @@
       menuBtn.classList.remove('is-open');
     }));
   </script>
+
+  <!-- SECCIÓN PANEL DE ADMINISTRACIÓN (SOLO VISIBLE CON CLAVE) -->
+  <section id="admin-panel" class="hidden bg-carbon text-masa border-b-4 border-mostaza">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 py-8">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-masa/20">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⚙️</span>
+          <h2 class="font-display font-bold text-2xl text-mostaza">Panel del Dueño - Agregar Productos</h2>
+        </div>
+        <button onclick="closeAdminPanel()" class="bg-tomate text-xs font-mono px-3 py-1.5 rounded-full hover:bg-tomate2">Cerrar Sesión</button>
+      </div>
+
+      <form id="add-product-form" onsubmit="handleAddNewProduct(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-carbon2 p-5 rounded-2xl border border-masa/10">
+        <div>
+          <label class="block font-mono text-xs text-masa2 mb-1">Categoría</label>
+          <select id="admin-category" class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza">
+            <option value="pizzas">Pizzas Napoletanas</option>
+            <option value="empanadas">Empanadas</option>
+            <option value="calzones">Calzones</option>
+            <option value="bebidas">Bebidas</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-masa2 mb-1">Nombre del producto</label>
+          <input type="text" id="admin-name" required placeholder="Ej: Pizza Cuatro Quesos" class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-masa2 mb-1">Descripción / Ingredientes</label>
+          <input type="text" id="admin-desc" placeholder="Ej: Mozzarella, gorgonzola, provolone..." class="w-full bg-carbon border border-masa/20 rounded-xl p-2.5 text-sm text-masa focus:outline-none focus:border-mostaza" />
+        </div>
+
+        <button type="submit" class="bg-mostaza hover:bg-mostaza/90 text-carbon font-bold py-2.5 px-5 rounded-xl transition-colors font-mono text-sm">
+          + Guardar en el Menú
+        </button>
+      </form>
+    </div>
+  </section>
 
   <!-- HERO -->
   <section class="texture-dark bg-carbon text-masa relative overflow-hidden">
@@ -215,7 +256,7 @@
       <div>
         <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Pizzas Napoletanas</h3>
         <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
-        <ul class="space-y-4">
+        <ul id="pizzas-list" class="space-y-4">
           <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
             <div>
               <div class="font-bold">Margherita</div>
@@ -273,7 +314,7 @@
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Empanadas</h3>
           <p class="text-sm text-carbon/60 mb-6 font-mono">al horno de barro</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div id="empanadas-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             <div class="border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between">
               <span class="font-semibold text-xs">Carne a Cuchillo</span>
               <button onclick="addToCart('Empanada Carne')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
@@ -304,7 +345,7 @@
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Calzones</h3>
           <p class="text-sm text-carbon/60 mb-4 font-mono">al horno de barro</p>
-          <ul class="space-y-4">
+          <ul id="calzones-list" class="space-y-4">
             <li class="border-b border-carbon/10 pb-3 flex items-center justify-between">
               <div>
                 <div class="font-bold">Calzone Napolitano</div>
@@ -324,7 +365,7 @@
 
         <div>
           <h3 class="font-display font-semibold italic text-xl sm:text-2xl text-tomate mb-1">Bebidas</h3>
-          <ul class="space-y-3 text-sm mt-4">
+          <ul id="bebidas-list" class="space-y-3 text-sm mt-4">
             <li class="border-b border-carbon/10 pb-2 flex items-center justify-between">
               <div>
                 <span class="font-semibold">Corona 710 ml</span>
@@ -435,12 +476,29 @@
         <span class="font-display italic text-lg text-masa">Che Atilio</span>
       </div>
       <p class="font-mono text-xs text-masa2/70 text-center">Almafuerte 1375 · Mar a Dom 18-23hs · © 2026 Che Atilio</p>
+      <button onclick="openAdminAuthModal()" class="text-xs text-masa2/50 hover:text-mostaza font-mono transition-colors">🔒 Acceso Dueño</button>
     </div>
   </footer>
 
-  <!-- ======================================================== -->
-  <!-- COMPONENTES DEL CARRITO (MODAL Y BOTÓN FLOTANTE) -->
-  <!-- ======================================================== -->
+  <!-- MODAL DE CONTRASEÑA ADMIN -->
+  <div id="admin-auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-carbon border border-masa/20 rounded-2xl max-w-sm w-full p-6 text-masa relative shadow-2xl">
+      <button onclick="closeAdminAuthModal()" class="absolute top-4 right-4 text-masa/60 hover:text-masa font-mono">✕</button>
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-mostaza/20 text-mostaza rounded-full flex items-center justify-center mx-auto mb-3 text-xl">🔒</div>
+        <h3 class="font-display font-bold text-lg">Acceso Dueño</h3>
+        <p class="text-xs text-masa2 mt-1">Ingresá la contraseña para gestionar el menú</p>
+      </div>
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <input type="password" id="admin-password-input" placeholder="Contraseña..." class="w-full bg-carbon2 border border-masa/20 rounded-xl p-3 text-sm focus:outline-none focus:border-mostaza" required />
+        </div>
+        <button type="submit" class="w-full bg-mostaza hover:bg-mostaza/90 text-carbon font-bold py-3 rounded-xl transition-colors font-mono text-sm">
+          Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- BOTÓN FLOTANTE CARRITO -->
   <button id="floating-cart-btn" onclick="toggleCart()" class="fixed bottom-6 right-6 z-40 bg-tomate text-masa p-4 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 transition-all">
@@ -494,11 +552,108 @@
     </div>
   </aside>
 
-  <!-- LÓGICA DE JAVASCRIPT DEL CARRITO -->
+  <!-- LÓGICA DE JAVASCRIPT DEL CARRITO Y PANEL ADMIN -->
   <script>
     let cart = [];
     const WHATSAPP_PHONE = "5491128952194"; // Número de WhatsApp Che Atilio
+    
+    // Contraseña para ingresar al panel de administración
+    const ADMIN_PASSWORD = "atilio123"; 
 
+    // Al cargar la página, recuperamos los ítems guardados por el dueño
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCustomProducts();
+    });
+
+    // --- FUNCIONES DEL PANEL ADMIN ---
+    function openAdminAuthModal() {
+      document.getElementById('admin-auth-modal').classList.remove('hidden');
+      document.getElementById('admin-password-input').focus();
+    }
+
+    function closeAdminAuthModal() {
+      document.getElementById('admin-auth-modal').classList.add('hidden');
+      document.getElementById('admin-password-input').value = '';
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const inputPass = document.getElementById('admin-password-input').value;
+      if (inputPass === ADMIN_PASSWORD) {
+        closeAdminAuthModal();
+        const panel = document.getElementById('admin-panel');
+        panel.classList.remove('hidden');
+        panel.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('Contraseña incorrecta.');
+      }
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('admin-panel').classList.add('hidden');
+    }
+
+    function handleAddNewProduct(e) {
+      e.preventDefault();
+      const category = document.getElementById('admin-category').value;
+      const name = document.getElementById('admin-name').value.trim();
+      const desc = document.getElementById('admin-desc').value.trim();
+
+      if (!name) return;
+
+      const newProduct = { category, name, desc };
+      
+      // Guardar en localStorage
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.push(newProduct);
+      localStorage.setItem('che_atilio_menu', JSON.stringify(savedProducts));
+
+      // Agregar visualmente al DOM
+      renderProductInDOM(newProduct);
+
+      // Limpiar formulario
+      document.getElementById('admin-name').value = '';
+      document.getElementById('admin-desc').value = '';
+
+      alert('¡Producto agregado al menú con éxito!');
+    }
+
+    function loadCustomProducts() {
+      const savedProducts = JSON.parse(localStorage.getItem('che_atilio_menu') || '[]');
+      savedProducts.forEach(product => renderProductInDOM(product));
+    }
+
+    function renderProductInDOM(product) {
+      if (product.category === 'pizzas' || product.category === 'calzones' || product.category === 'bebidas') {
+        const targetList = document.getElementById(`${product.category}-list`);
+        if (!targetList) return;
+
+        const li = document.createElement('li');
+        li.className = "border-b border-carbon/10 pb-3 flex items-center justify-between";
+        li.innerHTML = `
+          <div>
+            <div class="font-bold">${product.name}</div>
+            ${product.desc ? `<p class="text-xs text-carbon/70">${product.desc}</p>` : ''}
+          </div>
+          <button onclick="addToCart('${product.name}')" class="bg-carbon text-masa text-xs font-mono font-semibold px-3 py-1.5 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+        `;
+        targetList.appendChild(li);
+
+      } else if (product.category === 'empanadas') {
+        const targetList = document.getElementById('empanadas-list');
+        if (!targetList) return;
+
+        const div = document.createElement('div');
+        div.className = "border border-carbon/10 bg-white/40 p-2.5 rounded-xl flex items-center justify-between";
+        div.innerHTML = `
+          <span class="font-semibold text-xs">${product.name}</span>
+          <button onclick="addToCart('Empanada ${product.name}')" class="bg-carbon text-masa text-xs font-mono px-2.5 py-1 rounded-full hover:bg-tomate transition-colors">+ Agregar</button>
+        `;
+        targetList.appendChild(div);
+      }
+    }
+
+    // --- FUNCIONES DEL CARRITO ---
     function toggleCart() {
       const drawer = document.getElementById('cart-drawer');
       const overlay = document.getElementById('cart-overlay');
@@ -588,33 +743,28 @@
       const notes = document.getElementById('cart-notes').value.trim();
 
       if (deliveryType === 'Delivery' && !address) {
-        alert("Por favor ingresá tu dirección para la entrega.");
+        alert("Por favor, ingresá tu dirección para la entrega.");
         return;
       }
 
-      let message = `*NUEVO PEDIDO - CHE ATILIO*\n`;
-      message += `-----------------------------------\n`;
+      let message = `Hola Che Atilio! Quisiera realizar el siguiente pedido:\n\n`;
       
       cart.forEach(item => {
-        message += `• *${item.quantity}x* ${item.name}\n`;
+        message += `• ${item.quantity}x ${item.name}\n`;
       });
 
-      message += `-----------------------------------\n`;
-      message += `*Tipo de Entrega:* ${deliveryType}\n`;
+      message += `\n*Tipo de Entrega:* ${deliveryType}`;
       if (deliveryType === 'Delivery') {
-        message += `*Dirección:* ${address}\n`;
+        message += `\n*Dirección:* ${address}`;
       }
-      
+
       if (notes) {
-        message += `*Aclaraciones:* ${notes}\n`;
+        message += `\n*Aclaraciones:* ${notes}`;
       }
 
-      const encodedUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
-      window.open(encodedUrl, '_blank');
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`, '_blank');
     }
-
-    // Inicializar UI
-    updateCartUI();
   </script>
 </body>
 </html>
