@@ -568,12 +568,28 @@
       document.getElementById('admin-desc').value = '';
     }
 
-    function deleteProduct(id) {
-      if (confirm("¿Estás seguro de que querés borrar este producto del menú?")) {
-        products = products.filter(product => product.id !== id);
-        renderMenu();
-      }
-    }
+   function deleteProduct(id) {
+  const product = products.find(product => product.id === id);
+
+  if (!product) return;
+
+  const confirmar = confirm(
+    `¿Seguro que querés eliminar "${product.name}" del menú?`
+  );
+
+  if (!confirmar) return;
+
+  products = products.filter(product => product.id !== id);
+
+  localStorage.setItem(
+    'cheAtilio_products',
+    JSON.stringify(products)
+  );
+
+  renderMenu();
+
+  alert(`"${product.name}" fue eliminado del menú.`);
+}
 
     // --- LÓGICA DEL CARRITO ---
     function addToCart(itemName) {
